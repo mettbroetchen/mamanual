@@ -24,20 +24,19 @@
       --radius:    18px;
       --shadow:    0 2px 12px rgba(180,120,60,0.08);
     }
-
     @media (prefers-color-scheme: dark) {
-      :root {
-        --bg:        #1a1410;
-        --surface:   #221c16;
-        --card:      #2a221a;
-        --border:    #3d3028;
-        --accent:    #e8925f;
-        --accent-bg: #2d1f14;
-        --text:      #f5ede4;
-        --muted:     #a89080;
-        --hint:      #6a5a50;
-      }
-    }
+  :root {
+    --bg:        #1a1410;
+    --surface:   #221c16;
+    --card:      #2a221a;
+    --border:    #3d3028;
+    --accent:    #e8925f;
+    --accent-bg: #2d1f14;
+    --text:      #f5ede4;
+    --muted:     #a89080;
+    --hint:      #6a5a50;
+  }
+}
 
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -49,33 +48,22 @@
       overflow-x: hidden;
     }
 
+    /* ── Views ─────────────────────────────────────── */
     .view { display: none; padding: 1.25rem 1rem 2rem; max-width: 480px; margin: 0 auto; }
     .view.active { display: block; }
 
+    /* ── Header ─────────────────────────────────────── */
     .app-header {
       display: flex;
-      align-items: flex-start;
+      align-items: flex-end;
       justify-content: space-between;
       margin-bottom: 1.25rem;
-      gap: 8px;
     }
-    .app-header h1   { font-size: 26px; font-weight: 700; line-height: 1.1; }
+    .app-header h1 { font-size: 26px; font-weight: 700; line-height: 1.1; }
     .app-header .sub { font-size: 14px; color: var(--muted); margin-top: 3px; }
+    .header-icon { font-size: 36px; }
 
-    .lang-switcher { display: flex; gap: 4px; flex-shrink: 0; margin-top: 2px; }
-    .lang-btn {
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 4px 7px;
-      font-size: 18px;
-      cursor: pointer;
-      line-height: 1;
-      transition: border-color 0.12s, transform 0.1s;
-    }
-    .lang-btn:active { transform: scale(0.93); }
-    .lang-btn.active { border-color: var(--accent); background: var(--accent-bg); }
-
+    /* ── Search ─────────────────────────────────────── */
     .search-wrap { position: relative; margin-bottom: 1.25rem; }
     .search-wrap input {
       width: 100%;
@@ -97,7 +85,12 @@
       color: var(--hint); font-size: 17px; pointer-events: none;
     }
 
-    .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    /* ── Guide Grid ─────────────────────────────────── */
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
 
     .guide-card {
       background: var(--card);
@@ -113,7 +106,7 @@
       animation: fadeUp 0.3s ease both;
     }
     .guide-card:active { transform: scale(0.97); }
-    .guide-card:hover  { border-color: var(--accent); box-shadow: 0 4px 20px rgba(180,120,60,0.13); }
+    .guide-card:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(180,120,60,0.13); }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(10px); }
@@ -121,8 +114,8 @@
     }
 
     .card-emoji { font-size: 30px; line-height: 1; }
-    .card-name  { font-size: 14px; font-weight: 700; line-height: 1.3; }
-    .card-meta  { font-size: 12px; color: var(--muted); }
+    .card-name { font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--text); }
+    .card-meta { font-size: 12px; color: var(--muted); }
 
     .no-results {
       grid-column: 1 / -1;
@@ -132,6 +125,7 @@
       font-size: 15px;
     }
 
+    /* ── Detail View ─────────────────────────────────── */
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -160,7 +154,7 @@
     .detail-title { font-size: 20px; font-weight: 700; }
     .detail-desc  { font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
 
-    .section-heading {
+    .steps-heading {
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -168,27 +162,6 @@
       color: var(--hint);
       margin-bottom: 0.75rem;
     }
-
-    .mode-list { display: flex; flex-direction: column; gap: 10px; }
-
-    .mode-card {
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem 1.1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      box-shadow: var(--shadow);
-      transition: transform 0.12s, border-color 0.12s;
-      animation: fadeUp 0.25s ease both;
-    }
-    .mode-card:active { transform: scale(0.97); }
-    .mode-card:hover  { border-color: var(--accent); }
-    .mode-icon  { font-size: 26px; flex-shrink: 0; }
-    .mode-name  { font-size: 16px; font-weight: 700; }
-    .mode-arrow { margin-left: auto; color: var(--hint); font-size: 18px; }
 
     .step {
       display: flex;
@@ -201,272 +174,180 @@
       box-shadow: var(--shadow);
       animation: fadeUp 0.25s ease both;
     }
+
     .step-num {
       width: 28px; height: 28px;
       border-radius: 50%;
       background: var(--accent);
       color: #fff;
-      font-size: 13px; font-weight: 700;
+      font-size: 13px;
+      font-weight: 700;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
+
     .step-body { flex: 1; }
     .step-text { font-size: 15px; font-weight: 600; line-height: 1.5; }
     .step-note {
-      font-size: 13px; color: var(--muted); line-height: 1.5;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.5;
       background: var(--accent-bg);
       border-left: 3px solid var(--accent);
       border-radius: 0 8px 8px 0;
-      padding: 5px 8px; margin-top: 6px;
+      padding: 5px 8px;
+      margin-top: 6px;
     }
-    .download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 1rem;
-      padding: 10px 16px;
-      background: var(--card);
-      border: 1.5px solid var(--accent);
-      border-radius: var(--radius);
-      color: var(--accent);
-      font-family: 'Nunito', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.15s, transform 0.1s;
-      width: 100%;
-      justify-content: center;
-    }
-    .download-btn:active { transform: scale(0.97); }
-    .download-btn:hover  { background: var(--accent-bg); }
-    .download-icon { font-size: 16px; }
 
-    .step-photo { margin-top: 8px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border); }
-    .step-photo img { width: 100%; display: block; max-height: 200px; object-fit: cover; }
+    .step-photo {
+      margin-top: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+    }
+    .step-photo img {
+      width: 100%; display: block;
+      max-height: 200px; object-fit: cover;
+    }
     .photo-placeholder {
-      background: var(--surface); height: 110px;
+      background: var(--surface);
+      height: 110px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--hint); font-size: 13px; gap: 6px;
+      color: var(--hint);
+      font-size: 13px;
+      gap: 6px;
     }
   </style>
 </head>
 <body>
 
-<!-- VIEW 1 — STARTSEITE -->
+<!-- ═══════════════════════════════════════════════════════
+     STARTSEITE
+════════════════════════════════════════════════════════ -->
 <div class="view active" id="homeView">
   <div class="app-header">
     <div>
-      <h1 id="homeTitle">Mamas Helfer</h1>
-      <p class="sub" id="homeSub">Wie funktioniert das nochmal?</p>
+      <h1>Mamas Helfer</h1>
+      <p class="sub">Wie funktioniert das nochmal?</p>
     </div>
-    <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('de')" id="btn-de">🇩🇪</button>
-      <button class="lang-btn"        onclick="setLang('es')" id="btn-es">🇪🇸</button>
-      <button class="lang-btn"        onclick="setLang('en')" id="btn-en">🇬🇧</button>
-    </div>
+    <span class="header-icon">🌻</span>
   </div>
+
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="text" id="searchInput" oninput="filterGuides(this.value)" />
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Gerät suchen..."
+      oninput="filterGuides(this.value)"
+    />
   </div>
+
   <div class="guide-grid" id="guideGrid"></div>
 </div>
 
-<!-- VIEW 2 — UNTERKATEGORIEN -->
-<div class="view" id="modesView">
-  <button class="back-btn" onclick="showHome()">← <span id="modesBack">Zurück</span></button>
+
+<!-- ═══════════════════════════════════════════════════════
+     DETAILSEITE
+════════════════════════════════════════════════════════ -->
+<div class="view" id="detailView">
+  <button class="back-btn" onclick="showHome()">← Zurück</button>
   <div class="detail-hero">
-    <div class="detail-emoji" id="modesEmoji"></div>
+    <div class="detail-emoji" id="detailEmoji"></div>
     <div>
-      <div class="detail-title" id="modesTitle"></div>
-      <div class="detail-desc"  id="modesDesc"></div>
+      <div class="detail-title" id="detailTitle"></div>
+      <div class="detail-desc"  id="detailDesc"></div>
     </div>
   </div>
-  <div class="section-heading" id="modesHeading"></div>
-  <div id="modesManual"></div>
-  <div class="mode-list" id="modeList"></div>
+  <div class="steps-heading">Schritt für Schritt</div>
+  <div id="detailSteps"></div>
 </div>
 
-<!-- VIEW 3 — SCHRITTE -->
-<div class="view" id="stepsView">
-  <button class="back-btn" id="stepsBackBtn">← <span id="stepsBack">Zurück</span></button>
-  <div class="detail-hero">
-    <div class="detail-emoji" id="stepsEmoji"></div>
-    <div>
-      <div class="detail-title" id="stepsTitle"></div>
-      <div class="detail-desc"  id="stepsDesc"></div>
-    </div>
-  </div>
-  <div class="section-heading" id="stepsHeading"></div>
-  <div id="stepsManual"></div>
-  <div id="stepsList"></div>
-</div>
 
 <script>
-/* ══════════════════════════════════════════════════════
-   UI-TEXTE — Übersetzungen der App-Oberfläche
-══════════════════════════════════════════════════════ */
-const UI = {
-  de: {
-    appTitle:          "Mamas Helfer",
-    appSub:            "Wie funktioniert das nochmal?",
-    searchPlaceholder: "Gerät suchen...",
-    modesHeading:      "Was möchtest du tun?",
-    stepsHeading:      "Schritt für Schritt",
-    back:              "Zurück",
-    noResults:         "Nichts gefunden 🙁",
-    steps:             "Schritte",
-    functions:         "Funktionen",
-    photoLabel:        "📷 Foto folgt",
-    downloadManual:    "Bedienungsanleitung herunterladen",
-  },
-  es: {
-    appTitle:          "La Ayudante de Mamá",
-    appSub:            "¿Cómo funciona esto?",
-    searchPlaceholder: "Buscar dispositivo...",
-    modesHeading:      "¿Qué quieres hacer?",
-    stepsHeading:      "Paso a paso",
-    back:              "Volver",
-    noResults:         "No se encontró nada 🙁",
-    steps:             "pasos",
-    functions:         "funciones",
-    photoLabel:        "📷 Foto pendiente",
-    downloadManual:    "Descargar manual de instrucciones",
-  },
-  en: {
-    appTitle:          "Mama's Helper",
-    appSub:            "How does this work again?",
-    searchPlaceholder: "Search device...",
-    modesHeading:      "What would you like to do?",
-    stepsHeading:      "Step by step",
-    back:              "Back",
-    noResults:         "Nothing found 🙁",
-    steps:             "steps",
-    functions:         "functions",
-    photoLabel:        "📷 Photo coming soon",
-    downloadManual:    "Download instruction manual",
-  },
-};
-
-/* ══════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════
    ANLEITUNGEN — hier pflegst du alle Inhalte!
 
-   Jeder Text hat drei Sprachen: de / es / en
-   Ein Gerät kann entweder:
-     A) "steps" haben  → direkt zur Schritt-Ansicht
-     B) "modes" haben  → erst Auswahl-Screen, dann Schritte
-══════════════════════════════════════════════════════ */
+   Jeder Eintrag hat:
+     icon  → Emoji (wird auf der Karte und im Detail angezeigt)
+     name  → Gerätename
+     desc  → kurze Erklärung (1-2 Sätze)
+     steps → Liste der Schritte, jeder Schritt hat:
+               text  → Anweisung (Pflichtfeld)
+               note  → Hinweis/Warnung (optional, null wenn nicht benötigt)
+               photo → Pfad zum Bild (optional, null wenn kein Bild)
+                       Beispiel: "photos/milch-schritt-1.jpg"
+══════════════════════════════════════════════════════════ */
 const GUIDES = [
   {
     icon: "🥛",
-    name: { de: "Milchaufschäumer",       es: "Espumador de leche",     en: "Milk frother" },
-    desc: { de: "Wähle was du möchtest.", es: "Elige lo que quieres.",  en: "Choose what you'd like to do." },
-    manual: null,  // ← Ersetzen mit: "manuals/milchaufschaeumer.pdf" sobald du das PDF hochgeladen hast
-    modes: [
+    name: "Milchaufschäumer",
+    desc: "So bereitest du perfekt aufgeschäumte Milch für deinen Kaffee zu.",
+    manual: "manuals/lavazza_milkup_18200073.pdf",
+    steps: [
       {
-        name: { de: "Warme Milch aufschäumen", es: "Espumar leche caliente", en: "Froth warm milk" },
-        icon: "♨️",
-        steps: [
-          {
-            text:  { de: "Milch in den Behälter füllen",                     es: "Llenar el recipiente con leche",                    en: "Pour milk into the container" },
-            note:  { de: "Nur bis zur unteren Markierung — nicht zu voll!",  es: "Solo hasta la marca inferior — ¡no demasiado lleno!", en: "Only up to the lower mark — don't overfill!" },
-            photo: null
-          },
-          {
-            text:  { de: "Deckel fest aufsetzen und drehen bis es klickt",   es: "Colocar la tapa y girar hasta que haga clic",       en: "Put the lid on and turn until it clicks" },
-            note:  null,
-            photo: null
-          },
-          {
-            text:  { de: "Gerät auf die Basisstation stellen",               es: "Colocar el aparato en la base",                     en: "Place the device on the base" },
-            note:  { de: "Das Kabel muss nicht eingesteckt werden.",         es: "No es necesario enchufar el cable.",                en: "No need to plug in the cable." },
-            photo: null
-          },
-          {
-            text:  { de: "Den Knopf oben einmal drücken",                    es: "Presionar el botón superior una vez",               en: "Press the button on top once" },
-            note:  { de: "Grünes Licht = Gerät startet.",                    es: "Luz verde = el aparato arranca.",                   en: "Green light = device starting." },
-            photo: null
-          },
-          {
-            text:  { de: "Warten bis das Licht ausgeht (ca. 60 Sek.)",       es: "Esperar hasta que se apague la luz (~60 seg.)",     en: "Wait until the light goes off (~60 sec.)" },
-            note:  { de: "Das Gerät hört von selbst auf.",                   es: "El aparato se detiene solo.",                       en: "The device stops on its own." },
-            photo: null
-          },
-          {
-            text:  { de: "Deckel öffnen und Milch eingiessen",               es: "Abrir la tapa y verter la leche",                   en: "Open the lid and pour the milk" },
-            note:  { de: "Vorsicht: der Behälter ist warm!",                 es: "¡Cuidado: el recipiente está caliente!",            en: "Careful: the container is hot!" },
-            photo: null
-          }
-        ]
+        text: "Milch in den Behälter füllen",
+        note: "Nur bis zur unteren Markierung füllen — nicht zu voll!",
+        photo: null   // ← Ersetzen mit: "photos/milch-1.jpg"
       },
       {
-        name: { de: "Kalte Milch aufschäumen", es: "Espumar leche fría", en: "Froth cold milk" },
-        icon: "❄️",
-        steps: [
-          {
-            text:  { de: "Kalte Milch in den Behälter füllen",               es: "Llenar el recipiente con leche fría",               en: "Pour cold milk into the container" },
-            note:  { de: "Nur bis zur unteren Markierung.",                  es: "Solo hasta la marca inferior.",                     en: "Only up to the lower mark." },
-            photo: null
-          },
-          {
-            text:  { de: "Deckel fest aufsetzen und drehen bis es klickt",   es: "Colocar la tapa y girar hasta que haga clic",       en: "Put the lid on and turn until it clicks" },
-            note:  null,
-            photo: null
-          },
-          {
-            text:  { de: "Gerät auf die Basisstation stellen",               es: "Colocar el aparato en la base",                     en: "Place the device on the base" },
-            note:  null,
-            photo: null
-          },
-          {
-            text:  { de: "Den Knopf oben zweimal drücken",                   es: "Presionar el botón superior dos veces",             en: "Press the button on top twice" },
-            note:  { de: "Zwei Mal = kalter Schaum. Ein Mal = warm.",        es: "Dos veces = espuma fría. Una vez = caliente.",      en: "Twice = cold foam. Once = warm." },
-            photo: null
-          },
-          {
-            text:  { de: "Warten bis das Licht ausgeht (ca. 60 Sek.)",       es: "Esperar hasta que se apague la luz (~60 seg.)",     en: "Wait until the light goes off (~60 sec.)" },
-            note:  { de: "Das Gerät hört von selbst auf.",                   es: "El aparato se detiene solo.",                       en: "The device stops on its own." },
-            photo: null
-          },
-          {
-            text:  { de: "Deckel öffnen und Milch eingiessen",               es: "Abrir la tapa y verter la leche",                   en: "Open the lid and pour the milk" },
-            note:  null,
-            photo: null
-          }
-        ]
+        text: "Deckel fest aufsetzen und drehen bis es klickt",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Gerät auf die Basisstation stellen",
+        note: "Das Kabel muss nicht eingesteckt werden — die Basis lädt kabellos.",
+        photo: null
+      },
+      {
+        text: "Den Knopf oben einmal drücken",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Warten bis das Licht ausgeht (ca. 60 Sekunden)",
+        note: "Das Gerät hört von selbst auf — nichts mehr drücken.",
+        photo: null
+      },
+      {
+        text: "Deckel öffnen und Milch in den Kaffee giessen",
+        note: "Vorsicht: der Behälter ist warm!",
+        photo: null
       }
     ]
   },
 
   {
     icon: "☕",
-    name: { de: "Kaffeemaschine", es: "Cafetera",      en: "Coffee machine" },
-    desc: { de: "Eine Tasse Kaffee in wenigen Schritten.", es: "Una taza de café en pocos pasos.", en: "A cup of coffee in just a few steps." },
+    name: "Kaffeemaschine",
+    desc: "Eine Tasse Kaffee in wenigen einfachen Schritten.",
     steps: [
       {
-        text:  { de: "Wassertank herausziehen und füllen",      es: "Sacar el depósito de agua y llenarlo",   en: "Pull out the water tank and fill it" },
-        note:  { de: "Mindestens bis MIN, maximal bis MAX.",    es: "Al menos hasta MIN, máximo hasta MAX.",  en: "At least to MIN, maximum to MAX." },
+        text: "Wassertank herausziehen und mit Wasser füllen",
+        note: "Mindestens bis zur MIN-Markierung, maximal bis MAX.",
         photo: null
       },
       {
-        text:  { de: "Tank einsetzen bis er einrastet",         es: "Insertar el depósito hasta que encaje",  en: "Insert the tank until it clicks" },
-        note:  null,
+        text: "Tank wieder einsetzen bis er hörbar einrastet",
+        note: null,
         photo: null
       },
       {
-        text:  { de: "Tasse unter den Auslass stellen",         es: "Colocar la taza bajo el dispensador",    en: "Place a cup under the spout" },
-        note:  null,
+        text: "Eine Tasse unter den Auslass stellen",
+        note: null,
         photo: null
       },
       {
-        text:  { de: "Einschalter drücken",                     es: "Pulsar el botón de encendido",           en: "Press the power button" },
-        note:  null,
+        text: "Den Einschalter drücken",
+        note: null,
         photo: null
       },
       {
-        text:  { de: "Gewünschte Tassengrösse wählen",          es: "Seleccionar el tamaño de taza deseado",  en: "Select the desired cup size" },
-        note:  { de: "Kleine Tasse = kurzer Kaffee, grosse = langer.", es: "Taza pequeña = café corto, grande = largo.", en: "Small cup = short coffee, large = long." },
+        text: "Die gewünschte Tassengrösse wählen",
+        note: "Kleine Tasse = kurzer Kaffee, große Tasse = langer Kaffee.",
         photo: null
       }
     ]
@@ -474,186 +355,100 @@ const GUIDES = [
 
   {
     icon: "📺",
-    name: { de: "Fernseher", es: "Televisión", en: "TV" },
-    desc: { de: "Einschalten, Sender wechseln und Lautstärke regeln.", es: "Encender, cambiar canales y ajustar el volumen.", en: "Switch on, change channels and adjust volume." },
+    name: "Fernseher",
+    desc: "Einschalten, Sender wechseln und Lautstärke regeln.",
     steps: [
       {
-        text:  { de: "Die grosse Fernbedienung nehmen",                    es: "Coger el mando a distancia grande",           en: "Pick up the large remote control" },
-        note:  null,
+        text: "Die große Fernbedienung nehmen",
+        note: null,
         photo: null
       },
       {
-        text:  { de: "Roten Knopf oben drücken zum Einschalten",           es: "Pulsar el botón rojo superior para encender", en: "Press the red button on top to switch on" },
-        note:  { de: "Wenn nichts passiert: Fernbedienung auf den Fernseher richten.", es: "Si no pasa nada: apuntar el mando hacia el televisor.", en: "If nothing happens: point the remote at the TV." },
+        text: "Den roten Knopf oben drücken zum Einschalten",
+        note: "Wenn nichts passiert: Fernbedienung auf den Fernseher richten und nochmal drücken.",
         photo: null
       },
       {
-        text:  { de: "Mit Pfeiltasten navigieren, OK zum Bestätigen",      es: "Navegar con las flechas, OK para confirmar",  en: "Navigate with arrows, OK to confirm" },
-        note:  null,
+        text: "Mit den Pfeiltasten navigieren, OK zum Bestätigen drücken",
+        note: null,
         photo: null
       },
       {
-        text:  { de: "Lautstärke mit +/- Tasten regeln",                   es: "Ajustar el volumen con los botones +/-",      en: "Adjust volume with the +/- buttons" },
-        note:  null,
+        text: "Lautstärke mit den +/- Tasten an der Seite regeln",
+        note: null,
         photo: null
       }
     ]
   }
 
-  // ── Weitere Geräte hier hinzufügen ──
-  // Jeder Text braucht: de / es / en
+  // ── Hier kannst du weitere Geräte hinzufügen ──
+  // Kopiere einfach einen der obigen Einträge und passe ihn an.
+  // Vergiss das Komma nach der schließenden } nicht!
 ];
 
-/* ══════════════════════════════════════════════════════
+
+/* ══════════════════════════════════════════════════════════
    APP-LOGIK — hier musst du nichts ändern
-══════════════════════════════════════════════════════ */
-let lang = localStorage.getItem('lang') || 'de';
-let currentGuide = null;
-
-function t(obj) {
-  if (!obj) return '';
-  return obj[lang] || obj['de'] || '';
-}
-
-function setLang(l) {
-  lang = l;
-  localStorage.setItem('lang', l);
-  document.documentElement.lang = l;
-
-  ['de','es','en'].forEach(code => {
-    document.getElementById('btn-' + code).classList.toggle('active', code === l);
-  });
-
-  const ui = UI[l];
-  document.getElementById('homeTitle').textContent        = ui.appTitle;
-  document.getElementById('homeSub').textContent          = ui.appSub;
-  document.getElementById('searchInput').placeholder      = ui.searchPlaceholder;
-  document.getElementById('modesBack').textContent        = ui.back;
-  document.getElementById('stepsBack').textContent        = ui.back;
-  document.getElementById('modesHeading').textContent     = ui.modesHeading;
-  document.getElementById('stepsHeading').textContent     = ui.stepsHeading;
-
-  const active = document.querySelector('.view.active').id;
-  if (active === 'homeView') {
-    renderGrid(GUIDES);
-  } else if (active === 'modesView' && currentGuide) {
-    openGuide(currentGuide.name['de']);
-  }
-}
-
-function showView(id) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
+══════════════════════════════════════════════════════════ */
 
 function renderGrid(data) {
-  const ui   = UI[lang];
   const grid = document.getElementById('guideGrid');
   if (data.length === 0) {
-    grid.innerHTML = `<div class="no-results">${ui.noResults}</div>`;
+    grid.innerHTML = '<div class="no-results">Nichts gefunden 🙁</div>';
     return;
   }
   grid.innerHTML = data.map((g, i) => `
     <div class="guide-card" style="animation-delay:${i * 0.05}s"
-         onclick="openGuide('${g.name['de']}')">
+         onclick="showDetail('${g.name}')">
       <div class="card-emoji">${g.icon}</div>
-      <div class="card-name">${t(g.name)}</div>
-      <div class="card-meta">
-        ${g.modes
-          ? g.modes.length + ' ' + ui.functions
-          : g.steps.length + ' ' + ui.steps}
-      </div>
+      <div class="card-name">${g.name}</div>
+      <div class="card-meta">${g.steps.length} Schritte</div>
     </div>
   `).join('');
 }
 
 function filterGuides(q) {
   const filtered = GUIDES.filter(g =>
-    t(g.name).toLowerCase().includes(q.toLowerCase())
+    g.name.toLowerCase().includes(q.toLowerCase())
   );
   renderGrid(filtered);
 }
 
-function openGuide(deName) {
-  const g = GUIDES.find(x => x.name['de'] === deName);
+function showDetail(name) {
+  const g = GUIDES.find(x => x.name === name);
   if (!g) return;
-  currentGuide = g;
 
-  if (g.modes) {
-    document.getElementById('modesEmoji').textContent   = g.icon;
-    document.getElementById('modesTitle').textContent   = t(g.name);
-    document.getElementById('modesDesc').textContent    = t(g.desc);
-    document.getElementById('modesHeading').textContent = UI[lang].modesHeading;
-    document.getElementById('modesManual').innerHTML = g.manual
-      ? `<a class="download-btn" href="${g.manual}" download>
-           <span class="download-icon">📄</span>${UI[lang].downloadManual}
-         </a>`
-      : '';
-    document.getElementById('modeList').innerHTML = g.modes.map((m, i) => `
-      <div class="mode-card" style="animation-delay:${i * 0.07}s"
-           onclick="openMode(${i})">
-        <div class="mode-icon">${m.icon}</div>
-        <div class="mode-name">${t(m.name)}</div>
-        <div class="mode-arrow">›</div>
-      </div>
-    `).join('');
-    showView('modesView');
-  } else {
-    renderSteps(g.icon, t(g.name), t(g.desc), g.steps, 'home');
-  }
-}
+  document.getElementById('detailEmoji').textContent = g.icon;
+  document.getElementById('detailTitle').textContent = g.name;
+  document.getElementById('detailDesc').textContent  = g.desc;
 
-function openMode(index) {
-  const m = currentGuide.modes[index];
-  renderSteps(m.icon, t(m.name), '', m.steps, 'modes');
-}
-
-function renderSteps(icon, title, desc, steps, backTarget) {
-  const ui = UI[lang];
-  document.getElementById('stepsEmoji').textContent   = icon;
-  document.getElementById('stepsTitle').textContent   = title;
-  document.getElementById('stepsDesc').textContent    = desc;
-  document.getElementById('stepsHeading').textContent = ui.stepsHeading;
-  document.getElementById('stepsBack').textContent    = ui.back;
-
-  const manual = currentGuide ? currentGuide.manual : null;
-  document.getElementById('stepsManual').innerHTML = manual
-    ? `<a class="download-btn" href="${manual}" download>
-         <span class="download-icon">📄</span>${ui.downloadManual}
-       </a>`
-    : '';
-
-  document.getElementById('stepsBackBtn').onclick =
-    backTarget === 'modes' ? showModes : showHome;
-
-  document.getElementById('stepsList').innerHTML = steps.map((s, i) => `
+  document.getElementById('detailSteps').innerHTML = g.steps.map((s, i) => `
     <div class="step" style="animation-delay:${i * 0.06}s">
       <div class="step-num">${i + 1}</div>
       <div class="step-body">
-        <div class="step-text">${t(s.text)}</div>
-        ${t(s.note) ? `<div class="step-note">💡 ${t(s.note)}</div>` : ''}
+        <div class="step-text">${s.text}</div>
+        ${s.note  ? `<div class="step-note">💡 ${s.note}</div>` : ''}
         ${s.photo
-          ? `<div class="step-photo"><img src="${s.photo}" alt="Foto ${i+1}" /></div>`
-          : `<div class="step-photo"><div class="photo-placeholder">${ui.photoLabel}</div></div>`
+          ? `<div class="step-photo"><img src="${s.photo}" alt="Foto Schritt ${i+1}" /></div>`
+          : `<div class="step-photo"><div class="photo-placeholder">📷 Foto folgt</div></div>`
         }
       </div>
     </div>
   `).join('');
 
-  showView('stepsView');
+  document.getElementById('homeView').classList.remove('active');
+  document.getElementById('detailView').classList.add('active');
+  window.scrollTo(0, 0);
 }
 
 function showHome() {
-  currentGuide = null;
-  document.getElementById('searchInput').value = '';
-  renderGrid(GUIDES);
-  showView('homeView');
+  document.getElementById('detailView').classList.remove('active');
+  document.getElementById('homeView').classList.add('active');
+  window.scrollTo(0, 0);
 }
 
-function showModes() { showView('modesView'); }
-
-setLang(lang);
+// Startseite laden
+renderGrid(GUIDES);
 </script>
 </body>
 </html>
