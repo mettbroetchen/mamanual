@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mamas Helfer</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#fffaf5" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #fffaf5;
+      --surface:   #fff8f0;
+      --card:      #ffffff;
+      --border:    #f0e8de;
+      --accent:    #d97b4a;
+      --accent-bg: #fdf0e8;
+      --text:      #2d2010;
+      --muted:     #8a7060;
+      --hint:      #b8a898;
+      --radius:    18px;
+      --shadow:    0 2px 12px rgba(180,120,60,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Views ─────────────────────────────────────── */
+    .view { display: none; padding: 1.25rem 1rem 2rem; max-width: 480px; margin: 0 auto; }
+    .view.active { display: block; }
+
+    /* ── Header ─────────────────────────────────────── */
+    .app-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .app-header h1 { font-size: 26px; font-weight: 700; line-height: 1.1; }
+    .app-header .sub { font-size: 14px; color: var(--muted); margin-top: 3px; }
+    .header-icon { font-size: 36px; }
+
+    /* ── Search ─────────────────────────────────────── */
+    .search-wrap { position: relative; margin-bottom: 1.25rem; }
+    .search-wrap input {
+      width: 100%;
+      padding: 13px 16px 13px 42px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-wrap input:focus { border-color: var(--accent); }
+    .search-wrap input::placeholder { color: var(--hint); }
+    .search-icon {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--hint); font-size: 17px; pointer-events: none;
+    }
+
+    /* ── Guide Grid ─────────────────────────────────── */
+    .guide-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .guide-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: fadeUp 0.3s ease both;
+    }
+    .guide-card:active { transform: scale(0.97); }
+    .guide-card:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(180,120,60,0.13); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-emoji { font-size: 30px; line-height: 1; }
+    .card-name { font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--text); }
+    .card-meta { font-size: 12px; color: var(--muted); }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* ── Detail View ─────────────────────────────────── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--accent);
+      font-family: 'Nunito', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 0 0 1.25rem;
+    }
+
+    .detail-hero {
+      background: var(--accent-bg);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .detail-emoji { font-size: 44px; flex-shrink: 0; }
+    .detail-title { font-size: 20px; font-weight: 700; }
+    .detail-desc  { font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+
+    .steps-heading {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-bottom: 0.75rem;
+    }
+
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 0.85rem;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.25s ease both;
+    }
+
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-body { flex: 1; }
+    .step-text { font-size: 15px; font-weight: 600; line-height: 1.5; }
+    .step-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.5;
+      background: var(--accent-bg);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 5px 8px;
+      margin-top: 6px;
+    }
+
+    .step-photo {
+      margin-top: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid var(--border);
+    }
+    .step-photo img {
+      width: 100%; display: block;
+      max-height: 200px; object-fit: cover;
+    }
+    .photo-placeholder {
+      background: var(--surface);
+      height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--hint);
+      font-size: 13px;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     STARTSEITE
+════════════════════════════════════════════════════════ -->
+<div class="view active" id="homeView">
+  <div class="app-header">
+    <div>
+      <h1>Mamas Helfer</h1>
+      <p class="sub">Wie funktioniert das nochmal?</p>
+    </div>
+    <span class="header-icon">🌻</span>
+  </div>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Gerät suchen..."
+      oninput="filterGuides(this.value)"
+    />
+  </div>
+
+  <div class="guide-grid" id="guideGrid"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     DETAILSEITE
+════════════════════════════════════════════════════════ -->
+<div class="view" id="detailView">
+  <button class="back-btn" onclick="showHome()">← Zurück</button>
+  <div class="detail-hero">
+    <div class="detail-emoji" id="detailEmoji"></div>
+    <div>
+      <div class="detail-title" id="detailTitle"></div>
+      <div class="detail-desc"  id="detailDesc"></div>
+    </div>
+  </div>
+  <div class="steps-heading">Schritt für Schritt</div>
+  <div id="detailSteps"></div>
+</div>
+
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   ANLEITUNGEN — hier pflegst du alle Inhalte!
+
+   Jeder Eintrag hat:
+     icon  → Emoji (wird auf der Karte und im Detail angezeigt)
+     name  → Gerätename
+     desc  → kurze Erklärung (1-2 Sätze)
+     steps → Liste der Schritte, jeder Schritt hat:
+               text  → Anweisung (Pflichtfeld)
+               note  → Hinweis/Warnung (optional, null wenn nicht benötigt)
+               photo → Pfad zum Bild (optional, null wenn kein Bild)
+                       Beispiel: "photos/milch-schritt-1.jpg"
+══════════════════════════════════════════════════════════ */
+const GUIDES = [
+  {
+    icon: "🥛",
+    name: "Milchaufschäumer",
+    desc: "So bereitest du perfekt aufgeschäumte Milch für deinen Kaffee zu.",
+    steps: [
+      {
+        text: "Milch in den Behälter füllen",
+        note: "Nur bis zur unteren Markierung füllen — nicht zu voll!",
+        photo: null   // ← Ersetzen mit: "photos/milch-1.jpg"
+      },
+      {
+        text: "Deckel fest aufsetzen und drehen bis es klickt",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Gerät auf die Basisstation stellen",
+        note: "Das Kabel muss nicht eingesteckt werden — die Basis lädt kabellos.",
+        photo: null
+      },
+      {
+        text: "Den Knopf oben einmal drücken",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Warten bis das Licht ausgeht (ca. 60 Sekunden)",
+        note: "Das Gerät hört von selbst auf — nichts mehr drücken.",
+        photo: null
+      },
+      {
+        text: "Deckel öffnen und Milch in den Kaffee giessen",
+        note: "Vorsicht: der Behälter ist warm!",
+        photo: null
+      }
+    ]
+  },
+
+  {
+    icon: "☕",
+    name: "Kaffeemaschine",
+    desc: "Eine Tasse Kaffee in wenigen einfachen Schritten.",
+    steps: [
+      {
+        text: "Wassertank herausziehen und mit Wasser füllen",
+        note: "Mindestens bis zur MIN-Markierung, maximal bis MAX.",
+        photo: null
+      },
+      {
+        text: "Tank wieder einsetzen bis er hörbar einrastet",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Eine Tasse unter den Auslass stellen",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Den Einschalter drücken",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Die gewünschte Tassengrösse wählen",
+        note: "Kleine Tasse = kurzer Kaffee, große Tasse = langer Kaffee.",
+        photo: null
+      }
+    ]
+  },
+
+  {
+    icon: "📺",
+    name: "Fernseher",
+    desc: "Einschalten, Sender wechseln und Lautstärke regeln.",
+    steps: [
+      {
+        text: "Die große Fernbedienung nehmen",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Den roten Knopf oben drücken zum Einschalten",
+        note: "Wenn nichts passiert: Fernbedienung auf den Fernseher richten und nochmal drücken.",
+        photo: null
+      },
+      {
+        text: "Mit den Pfeiltasten navigieren, OK zum Bestätigen drücken",
+        note: null,
+        photo: null
+      },
+      {
+        text: "Lautstärke mit den +/- Tasten an der Seite regeln",
+        note: null,
+        photo: null
+      }
+    ]
+  }
+
+  // ── Hier kannst du weitere Geräte hinzufügen ──
+  // Kopiere einfach einen der obigen Einträge und passe ihn an.
+  // Vergiss das Komma nach der schließenden } nicht!
+];
+
+
+/* ══════════════════════════════════════════════════════════
+   APP-LOGIK — hier musst du nichts ändern
+══════════════════════════════════════════════════════════ */
+
+function renderGrid(data) {
+  const grid = document.getElementById('guideGrid');
+  if (data.length === 0) {
+    grid.innerHTML = '<div class="no-results">Nichts gefunden 🙁</div>';
+    return;
+  }
+  grid.innerHTML = data.map((g, i) => `
+    <div class="guide-card" style="animation-delay:${i * 0.05}s"
+         onclick="showDetail('${g.name}')">
+      <div class="card-emoji">${g.icon}</div>
+      <div class="card-name">${g.name}</div>
+      <div class="card-meta">${g.steps.length} Schritte</div>
+    </div>
+  `).join('');
+}
+
+function filterGuides(q) {
+  const filtered = GUIDES.filter(g =>
+    g.name.toLowerCase().includes(q.toLowerCase())
+  );
+  renderGrid(filtered);
+}
+
+function showDetail(name) {
+  const g = GUIDES.find(x => x.name === name);
+  if (!g) return;
+
+  document.getElementById('detailEmoji').textContent = g.icon;
+  document.getElementById('detailTitle').textContent = g.name;
+  document.getElementById('detailDesc').textContent  = g.desc;
+
+  document.getElementById('detailSteps').innerHTML = g.steps.map((s, i) => `
+    <div class="step" style="animation-delay:${i * 0.06}s">
+      <div class="step-num">${i + 1}</div>
+      <div class="step-body">
+        <div class="step-text">${s.text}</div>
+        ${s.note  ? `<div class="step-note">💡 ${s.note}</div>` : ''}
+        ${s.photo
+          ? `<div class="step-photo"><img src="${s.photo}" alt="Foto Schritt ${i+1}" /></div>`
+          : `<div class="step-photo"><div class="photo-placeholder">📷 Foto folgt</div></div>`
+        }
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('homeView').classList.remove('active');
+  document.getElementById('detailView').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showHome() {
+  document.getElementById('detailView').classList.remove('active');
+  document.getElementById('homeView').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Startseite laden
+renderGrid(GUIDES);
+</script>
+</body>
+</html>
