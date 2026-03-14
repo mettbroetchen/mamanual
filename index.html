@@ -219,6 +219,29 @@
       border-radius: 0 8px 8px 0;
       padding: 5px 8px; margin-top: 6px;
     }
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 1rem;
+      padding: 10px 16px;
+      background: var(--card);
+      border: 1.5px solid var(--accent);
+      border-radius: var(--radius);
+      color: var(--accent);
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.1s;
+      width: 100%;
+      justify-content: center;
+    }
+    .download-btn:active { transform: scale(0.97); }
+    .download-btn:hover  { background: var(--accent-bg); }
+    .download-icon { font-size: 16px; }
+
     .step-photo { margin-top: 8px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border); }
     .step-photo img { width: 100%; display: block; max-height: 200px; object-fit: cover; }
     .photo-placeholder {
@@ -261,6 +284,7 @@
     </div>
   </div>
   <div class="section-heading" id="modesHeading"></div>
+  <div id="modesManual"></div>
   <div class="mode-list" id="modeList"></div>
 </div>
 
@@ -275,6 +299,7 @@
     </div>
   </div>
   <div class="section-heading" id="stepsHeading"></div>
+  <div id="stepsManual"></div>
   <div id="stepsList"></div>
 </div>
 
@@ -294,6 +319,7 @@ const UI = {
     steps:             "Schritte",
     functions:         "Funktionen",
     photoLabel:        "📷 Foto folgt",
+    downloadManual:    "Bedienungsanleitung herunterladen",
   },
   es: {
     appTitle:          "La Ayudante de Mamá",
@@ -306,6 +332,7 @@ const UI = {
     steps:             "pasos",
     functions:         "funciones",
     photoLabel:        "📷 Foto pendiente",
+    downloadManual:    "Descargar manual de instrucciones",
   },
   en: {
     appTitle:          "Mama's Helper",
@@ -318,6 +345,7 @@ const UI = {
     steps:             "steps",
     functions:         "functions",
     photoLabel:        "📷 Photo coming soon",
+    downloadManual:    "Download instruction manual",
   },
 };
 
@@ -334,6 +362,7 @@ const GUIDES = [
     icon: "🥛",
     name: { de: "Milchaufschäumer",       es: "Espumador de leche",     en: "Milk frother" },
     desc: { de: "Wähle was du möchtest.", es: "Elige lo que quieres.",  en: "Choose what you'd like to do." },
+    manual: null,  // ← Ersetzen mit: "manuals/milchaufschaeumer.pdf" sobald du das PDF hochgeladen hast
     modes: [
       {
         name: { de: "Warme Milch aufschäumen", es: "Espumar leche caliente", en: "Froth warm milk" },
@@ -556,6 +585,11 @@ function openGuide(deName) {
     document.getElementById('modesTitle').textContent   = t(g.name);
     document.getElementById('modesDesc').textContent    = t(g.desc);
     document.getElementById('modesHeading').textContent = UI[lang].modesHeading;
+    document.getElementById('modesManual').innerHTML = g.manual
+      ? `<a class="download-btn" href="${g.manual}" download>
+           <span class="download-icon">📄</span>${UI[lang].downloadManual}
+         </a>`
+      : '';
     document.getElementById('modeList').innerHTML = g.modes.map((m, i) => `
       <div class="mode-card" style="animation-delay:${i * 0.07}s"
            onclick="openMode(${i})">
@@ -582,6 +616,13 @@ function renderSteps(icon, title, desc, steps, backTarget) {
   document.getElementById('stepsDesc').textContent    = desc;
   document.getElementById('stepsHeading').textContent = ui.stepsHeading;
   document.getElementById('stepsBack').textContent    = ui.back;
+
+  const manual = currentGuide ? currentGuide.manual : null;
+  document.getElementById('stepsManual').innerHTML = manual
+    ? `<a class="download-btn" href="${manual}" download>
+         <span class="download-icon">📄</span>${ui.downloadManual}
+       </a>`
+    : '';
 
   document.getElementById('stepsBackBtn').onclick =
     backTarget === 'modes' ? showModes : showHome;
