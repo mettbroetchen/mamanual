@@ -25,6 +25,20 @@
       --shadow:    0 2px 12px rgba(180,120,60,0.08);
     }
 
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:        #1a1410;
+        --surface:   #221c16;
+        --card:      #2a221a;
+        --border:    #3d3028;
+        --accent:    #e8925f;
+        --accent-bg: #2d1f14;
+        --text:      #f5ede4;
+        --muted:     #a89080;
+        --hint:      #6a5a50;
+      }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
     body {
@@ -35,22 +49,22 @@
       overflow-x: hidden;
     }
 
-    /* ── Views ─────────────────────────────────────── */
+    /* ── Views ──────────────────────────────────── */
     .view { display: none; padding: 1.25rem 1rem 2rem; max-width: 480px; margin: 0 auto; }
     .view.active { display: block; }
 
-    /* ── Header ─────────────────────────────────────── */
+    /* ── Header ─────────────────────────────────── */
     .app-header {
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       margin-bottom: 1.25rem;
     }
-    .app-header h1 { font-size: 26px; font-weight: 700; line-height: 1.1; }
+    .app-header h1  { font-size: 26px; font-weight: 700; line-height: 1.1; }
     .app-header .sub { font-size: 14px; color: var(--muted); margin-top: 3px; }
     .header-icon { font-size: 36px; }
 
-    /* ── Search ─────────────────────────────────────── */
+    /* ── Search ─────────────────────────────────── */
     .search-wrap { position: relative; margin-bottom: 1.25rem; }
     .search-wrap input {
       width: 100%;
@@ -72,7 +86,7 @@
       color: var(--hint); font-size: 17px; pointer-events: none;
     }
 
-    /* ── Guide Grid ─────────────────────────────────── */
+    /* ── Guide Grid ─────────────────────────────── */
     .guide-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -93,7 +107,7 @@
       animation: fadeUp 0.3s ease both;
     }
     .guide-card:active { transform: scale(0.97); }
-    .guide-card:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(180,120,60,0.13); }
+    .guide-card:hover  { border-color: var(--accent); box-shadow: 0 4px 20px rgba(180,120,60,0.13); }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(10px); }
@@ -101,8 +115,8 @@
     }
 
     .card-emoji { font-size: 30px; line-height: 1; }
-    .card-name { font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--text); }
-    .card-meta { font-size: 12px; color: var(--muted); }
+    .card-name  { font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--text); }
+    .card-meta  { font-size: 12px; color: var(--muted); }
 
     .no-results {
       grid-column: 1 / -1;
@@ -112,7 +126,7 @@
       font-size: 15px;
     }
 
-    /* ── Detail View ─────────────────────────────────── */
+    /* ── Zurück-Button ──────────────────────────── */
     .back-btn {
       display: inline-flex;
       align-items: center;
@@ -127,6 +141,7 @@
       padding: 0 0 1.25rem;
     }
 
+    /* ── Detail Hero ─────────────────────────────── */
     .detail-hero {
       background: var(--accent-bg);
       border: 1.5px solid var(--border);
@@ -141,6 +156,43 @@
     .detail-title { font-size: 20px; font-weight: 700; }
     .detail-desc  { font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
 
+    /* ── Modes (Unterkategorien) ─────────────────── */
+    .modes-heading {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-bottom: 0.75rem;
+    }
+
+    .mode-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mode-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow);
+      transition: transform 0.12s, border-color 0.12s;
+      animation: fadeUp 0.25s ease both;
+    }
+    .mode-card:active { transform: scale(0.97); }
+    .mode-card:hover  { border-color: var(--accent); }
+
+    .mode-icon  { font-size: 26px; flex-shrink: 0; }
+    .mode-name  { font-size: 16px; font-weight: 700; }
+    .mode-arrow { margin-left: auto; color: var(--hint); font-size: 18px; }
+
+    /* ── Steps ───────────────────────────────────── */
     .steps-heading {
       font-size: 12px;
       font-weight: 700;
@@ -179,7 +231,6 @@
     .step-note {
       font-size: 13px;
       color: var(--muted);
-      margin-top: 4px;
       line-height: 1.5;
       background: var(--accent-bg);
       border-left: 3px solid var(--accent);
@@ -210,9 +261,9 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════
-     STARTSEITE
-════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════
+     VIEW 1 — STARTSEITE
+════════════════════════════════════════════ -->
 <div class="view active" id="homeView">
   <div class="app-header">
     <div>
@@ -236,72 +287,132 @@
 </div>
 
 
-<!-- ═══════════════════════════════════════════════════════
-     DETAILSEITE
-════════════════════════════════════════════════════════ -->
-<div class="view" id="detailView">
+<!-- ════════════════════════════════════════════
+     VIEW 2 — UNTERKATEGORIEN (nur bei modes)
+════════════════════════════════════════════ -->
+<div class="view" id="modesView">
   <button class="back-btn" onclick="showHome()">← Zurück</button>
   <div class="detail-hero">
-    <div class="detail-emoji" id="detailEmoji"></div>
+    <div class="detail-emoji" id="modesEmoji"></div>
     <div>
-      <div class="detail-title" id="detailTitle"></div>
-      <div class="detail-desc"  id="detailDesc"></div>
+      <div class="detail-title" id="modesTitle"></div>
+      <div class="detail-desc"  id="modesDesc"></div>
+    </div>
+  </div>
+  <div class="modes-heading">Was möchtest du tun?</div>
+  <div class="mode-list" id="modeList"></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     VIEW 3 — SCHRITTE
+════════════════════════════════════════════ -->
+<div class="view" id="stepsView">
+  <button class="back-btn" id="stepsBackBtn">← Zurück</button>
+  <div class="detail-hero">
+    <div class="detail-emoji" id="stepsEmoji"></div>
+    <div>
+      <div class="detail-title" id="stepsTitle"></div>
+      <div class="detail-desc"  id="stepsDesc"></div>
     </div>
   </div>
   <div class="steps-heading">Schritt für Schritt</div>
-  <div id="detailSteps"></div>
+  <div id="stepsList"></div>
 </div>
 
 
 <script>
-/* ══════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════
    ANLEITUNGEN — hier pflegst du alle Inhalte!
 
-   Jeder Eintrag hat:
-     icon  → Emoji (wird auf der Karte und im Detail angezeigt)
-     name  → Gerätename
-     desc  → kurze Erklärung (1-2 Sätze)
-     steps → Liste der Schritte, jeder Schritt hat:
-               text  → Anweisung (Pflichtfeld)
-               note  → Hinweis/Warnung (optional, null wenn nicht benötigt)
-               photo → Pfad zum Bild (optional, null wenn kein Bild)
-                       Beispiel: "photos/milch-schritt-1.jpg"
-══════════════════════════════════════════════════════════ */
+   Ein Gerät kann entweder:
+     A) "steps" haben  → direkt zur Schritt-Ansicht
+     B) "modes" haben  → zuerst Auswahl-Screen, dann Schritte
+
+   Jeder Schritt hat:
+     text  → Anweisung (Pflichtfeld)
+     note  → Hinweis (optional, null wenn nicht benötigt)
+     photo → Bildpfad (optional, null oder z.B. "photos/milch-1.jpg")
+════════════════════════════════════════════════════════ */
 const GUIDES = [
   {
     icon: "🥛",
     name: "Milchaufschäumer",
-    desc: "So bereitest du perfekt aufgeschäumte Milch für deinen Kaffee zu.",
-    steps: [
+    desc: "Wähle aus, was du machen möchtest.",
+
+    // ── Dieses Gerät hat Unterkategorien ──
+    modes: [
       {
-        text: "Milch in den Behälter füllen",
-        note: "Nur bis zur unteren Markierung füllen — nicht zu voll!",
-        photo: null   // ← Ersetzen mit: "photos/milch-1.jpg"
+        name: "Warme Milch aufschäumen",
+        icon: "♨️",
+        steps: [
+          {
+            text: "Milch in den Behälter füllen",
+            note: "Nur bis zur unteren Markierung — nicht zu voll!",
+            photo: null
+          },
+          {
+            text: "Deckel fest aufsetzen und drehen bis es klickt",
+            note: null,
+            photo: null
+          },
+          {
+            text: "Gerät auf die Basisstation stellen",
+            note: "Das Kabel muss nicht eingesteckt werden — die Basis lädt kabellos.",
+            photo: null
+          },
+          {
+            text: "Den Knopf oben einmal drücken",
+            note: "Das grüne Licht zeigt an, dass das Gerät startet.",
+            photo: null
+          },
+          {
+            text: "Warten bis das Licht ausgeht (ca. 60 Sekunden)",
+            note: "Das Gerät hört von selbst auf — nichts mehr drücken.",
+            photo: null
+          },
+          {
+            text: "Deckel öffnen und Milch in den Kaffee giessen",
+            note: "Vorsicht: der Behälter ist warm!",
+            photo: null
+          }
+        ]
       },
       {
-        text: "Deckel fest aufsetzen und drehen bis es klickt",
-        note: null,
-        photo: null
-      },
-      {
-        text: "Gerät auf die Basisstation stellen",
-        note: "Das Kabel muss nicht eingesteckt werden — die Basis lädt kabellos.",
-        photo: null
-      },
-      {
-        text: "Den Knopf oben einmal drücken",
-        note: null,
-        photo: null
-      },
-      {
-        text: "Warten bis das Licht ausgeht (ca. 60 Sekunden)",
-        note: "Das Gerät hört von selbst auf — nichts mehr drücken.",
-        photo: null
-      },
-      {
-        text: "Deckel öffnen und Milch in den Kaffee giessen",
-        note: "Vorsicht: der Behälter ist warm!",
-        photo: null
+        name: "Kalte Milch aufschäumen",
+        icon: "❄️",
+        steps: [
+          {
+            text: "Kalte Milch in den Behälter füllen",
+            note: "Nur bis zur unteren Markierung — nicht zu voll!",
+            photo: null
+          },
+          {
+            text: "Deckel fest aufsetzen und drehen bis es klickt",
+            note: null,
+            photo: null
+          },
+          {
+            text: "Gerät auf die Basisstation stellen",
+            note: null,
+            photo: null
+          },
+          {
+            text: "Den Knopf oben zweimal drücken",
+            note: "Zwei Mal drücken = kalter Schaum. Ein Mal = warm.",
+            photo: null
+          },
+          {
+            text: "Warten bis das Licht ausgeht (ca. 60 Sekunden)",
+            note: "Das Gerät hört von selbst auf.",
+            photo: null
+          },
+          {
+            text: "Deckel öffnen und Milch giessen",
+            note: null,
+            photo: null
+          }
+        ]
       }
     ]
   },
@@ -310,6 +421,8 @@ const GUIDES = [
     icon: "☕",
     name: "Kaffeemaschine",
     desc: "Eine Tasse Kaffee in wenigen einfachen Schritten.",
+
+    // ── Dieses Gerät hat keine Unterkategorien ──
     steps: [
       {
         text: "Wassertank herausziehen und mit Wasser füllen",
@@ -333,7 +446,7 @@ const GUIDES = [
       },
       {
         text: "Die gewünschte Tassengrösse wählen",
-        note: "Kleine Tasse = kurzer Kaffee, große Tasse = langer Kaffee.",
+        note: "Kleine Tasse = kurzer Kaffee, grosse Tasse = langer Kaffee.",
         photo: null
       }
     ]
@@ -345,7 +458,7 @@ const GUIDES = [
     desc: "Einschalten, Sender wechseln und Lautstärke regeln.",
     steps: [
       {
-        text: "Die große Fernbedienung nehmen",
+        text: "Die grosse Fernbedienung nehmen",
         note: null,
         photo: null
       },
@@ -368,14 +481,23 @@ const GUIDES = [
   }
 
   // ── Hier kannst du weitere Geräte hinzufügen ──
-  // Kopiere einfach einen der obigen Einträge und passe ihn an.
-  // Vergiss das Komma nach der schließenden } nicht!
+  // Mit Unterkategorien: modes: [ { name, icon, steps: [...] }, ... ]
+  // Ohne Unterkategorien: steps: [ { text, note, photo }, ... ]
+  // Vergiss das Komma nach der schliessenden } nicht!
 ];
 
 
-/* ══════════════════════════════════════════════════════════
+/* ════════════════════════════════════════════════════════
    APP-LOGIK — hier musst du nichts ändern
-══════════════════════════════════════════════════════════ */
+════════════════════════════════════════════════════════ */
+
+let currentGuide = null;
+
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
 
 function renderGrid(data) {
   const grid = document.getElementById('guideGrid');
@@ -385,10 +507,14 @@ function renderGrid(data) {
   }
   grid.innerHTML = data.map((g, i) => `
     <div class="guide-card" style="animation-delay:${i * 0.05}s"
-         onclick="showDetail('${g.name}')">
+         onclick="openGuide('${g.name}')">
       <div class="card-emoji">${g.icon}</div>
       <div class="card-name">${g.name}</div>
-      <div class="card-meta">${g.steps.length} Schritte</div>
+      <div class="card-meta">
+        ${g.modes
+          ? g.modes.length + ' Funktionen'
+          : g.steps.length + ' Schritte'}
+      </div>
     </div>
   `).join('');
 }
@@ -400,15 +526,47 @@ function filterGuides(q) {
   renderGrid(filtered);
 }
 
-function showDetail(name) {
+function openGuide(name) {
   const g = GUIDES.find(x => x.name === name);
   if (!g) return;
+  currentGuide = g;
 
-  document.getElementById('detailEmoji').textContent = g.icon;
-  document.getElementById('detailTitle').textContent = g.name;
-  document.getElementById('detailDesc').textContent  = g.desc;
+  if (g.modes) {
+    // Gerät hat Unterkategorien → Modes-Screen zeigen
+    document.getElementById('modesEmoji').textContent = g.icon;
+    document.getElementById('modesTitle').textContent = g.name;
+    document.getElementById('modesDesc').textContent  = g.desc;
+    document.getElementById('modeList').innerHTML = g.modes.map((m, i) => `
+      <div class="mode-card" style="animation-delay:${i * 0.07}s"
+           onclick="openMode(${i})">
+        <div class="mode-icon">${m.icon}</div>
+        <div class="mode-name">${m.name}</div>
+        <div class="mode-arrow">›</div>
+      </div>
+    `).join('');
+    showView('modesView');
+  } else {
+    // Gerät hat direkte Schritte → Steps-Screen zeigen
+    renderSteps(g.icon, g.name, g.desc, g.steps, 'home');
+  }
+}
 
-  document.getElementById('detailSteps').innerHTML = g.steps.map((s, i) => `
+function openMode(index) {
+  const g = currentGuide;
+  const m = g.modes[index];
+  renderSteps(m.icon, m.name, '', m.steps, 'modes');
+}
+
+function renderSteps(icon, title, desc, steps, backTarget) {
+  document.getElementById('stepsEmoji').textContent = icon;
+  document.getElementById('stepsTitle').textContent = title;
+  document.getElementById('stepsDesc').textContent  = desc;
+
+  // Zurück-Button: entweder zur Startseite oder zum Modes-Screen
+  const backBtn = document.getElementById('stepsBackBtn');
+  backBtn.onclick = backTarget === 'modes' ? showModes : showHome;
+
+  document.getElementById('stepsList').innerHTML = steps.map((s, i) => `
     <div class="step" style="animation-delay:${i * 0.06}s">
       <div class="step-num">${i + 1}</div>
       <div class="step-body">
@@ -422,15 +580,18 @@ function showDetail(name) {
     </div>
   `).join('');
 
-  document.getElementById('homeView').classList.remove('active');
-  document.getElementById('detailView').classList.add('active');
-  window.scrollTo(0, 0);
+  showView('stepsView');
 }
 
 function showHome() {
-  document.getElementById('detailView').classList.remove('active');
-  document.getElementById('homeView').classList.add('active');
-  window.scrollTo(0, 0);
+  currentGuide = null;
+  document.getElementById('searchInput').value = '';
+  renderGrid(GUIDES);
+  showView('homeView');
+}
+
+function showModes() {
+  showView('modesView');
 }
 
 // Startseite laden
