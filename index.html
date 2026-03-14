@@ -159,6 +159,21 @@
     .detail-emoji { font-size: 44px; flex-shrink: 0; }
     .detail-title { font-size: 20px; font-weight: 700; }
     .detail-desc  { font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+    .device-info  {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+    .device-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
 
     .section-heading {
       font-size: 12px;
@@ -224,6 +239,7 @@
       align-items: center;
       gap: 8px;
       margin-top: 1rem;
+      margin-bottom: 1rem;
       padding: 10px 16px;
       background: var(--card);
       border: 1.5px solid var(--accent);
@@ -281,6 +297,7 @@
     <div>
       <div class="detail-title" id="modesTitle"></div>
       <div class="detail-desc"  id="modesDesc"></div>
+      <div class="device-info"  id="modesDevice"></div>
     </div>
   </div>
   <div class="section-heading" id="modesHeading"></div>
@@ -296,6 +313,7 @@
     <div>
       <div class="detail-title" id="stepsTitle"></div>
       <div class="detail-desc"  id="stepsDesc"></div>
+      <div class="device-info"  id="stepsDevice"></div>
     </div>
   </div>
   <div class="section-heading" id="stepsHeading"></div>
@@ -362,7 +380,12 @@ const GUIDES = [
     icon: "🥛",
     name: { de: "Milchaufschäumer",       es: "Espumador de leche",     en: "Milk frother" },
     desc: { de: "Wähle was du möchtest.", es: "Elige lo que quieres.",  en: "Choose what you'd like to do." },
-    manual: "manuals/lavazza_milkup_18200073.pdf",  // ← Ersetzen mit: "manuals/milchaufschaeumer.pdf" sobald du das PDF hochgeladen hast
+    manual: null,  // ← Ersetzen mit: "manuals/milchaufschaeumer.pdf" sobald du das PDF hochgeladen hast
+    device: {
+      brand:  "Lavazza",
+      model:  "MilkUp",
+      number: "18200073"
+    },
     modes: [
       {
         name: { de: "Warme Milch aufschäumen", es: "Espumar leche caliente", en: "Froth warm milk" },
@@ -575,6 +598,16 @@ function filterGuides(q) {
   renderGrid(filtered);
 }
 
+function renderDevice(device) {
+  if (!device) return '';
+  const tags = [
+    device.brand  ? `🏷 ${device.brand}`  : null,
+    device.model  ? `📦 ${device.model}`  : null,
+    device.number ? `🔢 ${device.number}` : null,
+  ].filter(Boolean);
+  return tags.map(tag => `<span class="device-tag">${tag}</span>`).join('');
+}
+
 function openGuide(deName) {
   const g = GUIDES.find(x => x.name['de'] === deName);
   if (!g) return;
@@ -584,6 +617,7 @@ function openGuide(deName) {
     document.getElementById('modesEmoji').textContent   = g.icon;
     document.getElementById('modesTitle').textContent   = t(g.name);
     document.getElementById('modesDesc').textContent    = t(g.desc);
+    document.getElementById('modesDevice').innerHTML    = renderDevice(g.device);
     document.getElementById('modesHeading').textContent = UI[lang].modesHeading;
     document.getElementById('modesManual').innerHTML = g.manual
       ? `<a class="download-btn" href="${g.manual}" download>
@@ -614,6 +648,7 @@ function renderSteps(icon, title, desc, steps, backTarget) {
   document.getElementById('stepsEmoji').textContent   = icon;
   document.getElementById('stepsTitle').textContent   = title;
   document.getElementById('stepsDesc').textContent    = desc;
+  document.getElementById('stepsDevice').innerHTML    = renderDevice(currentGuide ? currentGuide.device : null);
   document.getElementById('stepsHeading').textContent = ui.stepsHeading;
   document.getElementById('stepsBack').textContent    = ui.back;
 
