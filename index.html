@@ -1305,15 +1305,21 @@ function adminAddStep(modeIndex) {
     renderAdminSteps();
   } else {
     adminModes[modeIndex].steps.push(newStep);
-    renderAdminModes();
+    renderAdminSteps(adminModes[modeIndex].steps, `modeSteps${modeIndex}`);
+    refreshModeHeader(modeIndex);
   }
 }
 
 function removeStep(i, containerId) {
   const list = getStepsList(containerId);
   list.splice(i, 1);
-  if (containerId === 'adminStepsList') renderAdminSteps();
-  else renderAdminModes();
+  if (containerId === 'adminStepsList') {
+    renderAdminSteps();
+  } else {
+    const mi = parseInt(containerId.replace('modeSteps',''));
+    renderAdminSteps(adminModes[mi].steps, containerId);
+    refreshModeHeader(mi);
+  }
 }
 
 function moveStep(i, dir, containerId) {
@@ -1321,47 +1327,86 @@ function moveStep(i, dir, containerId) {
   const j = i + dir;
   if (j < 0 || j >= list.length) return;
   [list[i], list[j]] = [list[j], list[i]];
-  if (containerId === 'adminStepsList') renderAdminSteps();
-  else renderAdminModes();
+  if (containerId === 'adminStepsList') {
+    renderAdminSteps();
+  } else {
+    const mi = parseInt(containerId.replace('modeSteps',''));
+    renderAdminSteps(adminModes[mi].steps, containerId);
+  }
 }
 
 // ── Modes ───────────────────────────────────────────
 function renderAdminModes() {
+  const openStates = adminModes.map((_, mi) => {
+    const el = document.getElementById('modeBody' + mi);
+    return el ? el.classList.contains('open') : (mi === 0);
+  });
+
   document.getElementById('adminModesList').innerHTML = adminModes.map((m, mi) => `
     <div class="admin-mode">
-      <div class="admin-mode-header">
-        <div class="admin-mode-title">${m.icon || '❓'} ${m.name?.de || 'Neue Unterkategorie'}</div>
-        <button class="btn-sm danger" onclick="removeMode(${mi})">✕</button>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <div class="admin-field" style="width:60px;flex-shrink:0;">
-          <label>Icon</label>
-          <input type="text" value="${m.icon||''}" maxlength="2"
-            oninput="adminModes[${mi}].icon=this.value; renderAdminModes()" />
+      <div class="admin-mode-header" onclick="toggleModeBody(${mi})" style="cursor:pointer; user-select:none;">
+        <div class="admin-mode-title">${m.icon || '❓'} ${m.name?.de || 'Neue Unterkategorie'}
+          <span style="font-size:11px; color:var(--muted); font-weight:400; margin-left:6px;">
+            ${m.steps?.length || 0} Schritte
+          </span>
         </div>
-        <div class="admin-field" style="flex:1;">
-          <label>Name (DE)</label>
-          <input type="text" value="${m.name?.de||''}"
-            oninput="adminModes[${mi}].name.de=this.value; renderAdminModes()" />
+        <div style="display:flex; gap:6px; align-items:center;">
+          <span id="modeChevron${mi}" style="color:var(--hint); font-size:14px; transition:transform 0.2s;
+            ${openStates[mi] ? 'transform:rotate(90deg)' : ''}">›</span>
+          <button class="btn-sm danger" onclick="event.stopPropagation(); removeMode(${mi})">✕</button>
         </div>
       </div>
-      <div style="display:flex;gap:6px;">
-        <div class="admin-field" style="flex:1;">
-          <label>Name (ES)</label>
-          <input type="text" value="${m.name?.es||''}"
-            oninput="adminModes[${mi}].name.es=this.value" />
+      <div id="modeBody${mi}" class="collapsible-steps ${openStates[mi] ? 'open' : ''}">
+        <div style="display:flex;gap:8px; margin-top:0.5rem;">
+          <div class="admin-field" style="width:60px;flex-shrink:0;">
+            <label>Icon</label>
+            <input type="text" value="${m.icon||''}" maxlength="2"
+              oninput="adminModes[${mi}].icon=this.value; refreshModeHeader(${mi})" />
+          </div>
+          <div class="admin-field" style="flex:1;">
+            <label>Name (DE)</label>
+            <input type="text" value="${m.name?.de||''}"
+              oninput="adminModes[${mi}].name.de=this.value; refreshModeHeader(${mi})" />
+          </div>
         </div>
-        <div class="admin-field" style="flex:1;">
-          <label>Name (EN)</label>
-          <input type="text" value="${m.name?.en||''}"
-            oninput="adminModes[${mi}].name.en=this.value" />
+        <div style="display:flex;gap:6px;">
+          <div class="admin-field" style="flex:1;">
+            <label>Name (ES)</label>
+            <input type="text" value="${m.name?.es||''}"
+              oninput="adminModes[${mi}].name.es=this.value" />
+          </div>
+          <div class="admin-field" style="flex:1;">
+            <label>Name (EN)</label>
+            <input type="text" value="${m.name?.en||''}"
+              oninput="adminModes[${mi}].name.en=this.value" />
+          </div>
         </div>
+        <div id="modeSteps${mi}"></div>
+        <button class="btn-sm" onclick="adminAddStep(${mi})" style="margin-top:4px;">+ Schritt</button>
       </div>
-      <div id="modeSteps${mi}"></div>
-      <button class="btn-sm" onclick="adminAddStep(${mi})" style="margin-top:4px;">+ Schritt</button>
     </div>
   `).join('');
+
   adminModes.forEach((m, mi) => renderAdminSteps(m.steps, `modeSteps${mi}`));
+}
+
+function toggleModeBody(mi) {
+  const body    = document.getElementById('modeBody'    + mi);
+  const chevron = document.getElementById('modeChevron' + mi);
+  const isOpen  = body.classList.toggle('open');
+  chevron.style.transform = isOpen ? 'rotate(90deg)' : '';
+}
+
+function refreshModeHeader(mi) {
+  const m     = adminModes[mi];
+  const title = document.getElementById('modeTitle' + mi);
+  if (title) {
+    const stepCount = m.steps?.length || 0;
+    title.innerHTML = `${m.icon || '❓'} ${m.name?.de || 'Neue Unterkategorie'}
+      <span style="font-size:11px; color:var(--muted); font-weight:400; margin-left:6px;">
+        ${stepCount} Schritte
+      </span>`;
+  }
 }
 
 function adminAddMode() {
