@@ -341,6 +341,7 @@ const UI = {
     brand:             "Marke",
     model:             "Modell",
     number:            "Modellnummer",
+    os:                "Betriebssystem",
   },
   es: {
     appTitle:          "La Ayudante de Mamá",
@@ -357,6 +358,7 @@ const UI = {
     brand:             "Marca",
     model:             "Modelo",
     number:            "Número de modelo",
+    os:                "Sistema operativo",
   },
   en: {
     appTitle:          "Mama's Helper",
@@ -373,6 +375,7 @@ const UI = {
     brand:             "Brand",
     model:             "Model",
     number:            "Model number",
+    os:                "Operating system",
   },
 };
 
@@ -537,73 +540,79 @@ const GUIDES = [
 
   ,{
     icon: "📱",
-    name: { de: "Smartphone",      es: "Teléfono móvil",  en: "Smartphone" },
-    desc: { de: "Anrufen, WhatsApp und Fotos.", es: "Llamadas, WhatsApp y fotos.", en: "Calls, WhatsApp and photos." },
+    name: { de: "Smartphone",                    es: "Teléfono móvil",          en: "Smartphone" },
+    desc: { de: "Benachrichtigungen und Scannen.", es: "Notificaciones y escaneo.", en: "Notifications and scanning." },
     manual: null,
     device: {
-      brand:  null,
-      model:  null,
-      number: null
+      brand:  "Xiaomi",
+      model:  "Redmi Note 14 5G",
+      number: null,
+      os:     "HyperOS 2.0.211.0"
     },
     modes: [
       {
-        name: { de: "Jemanden anrufen", es: "Llamar a alguien", en: "Make a phone call" },
-        icon: "📞",
+        name: { de: "Benachrichtigungen stummschalten", es: "Silenciar notificaciones", en: "Silence notifications" },
+        icon: "🔕",
         steps: [
           {
-            text:  { de: "Seitentaste drücken um den Bildschirm einzuschalten", es: "Pulsar el botón lateral para encender la pantalla", en: "Press the side button to wake the screen" },
+            text:  { de: "Von oben nach unten wischen um die Benachrichtigungsleiste zu öffnen", es: "Deslizar de arriba hacia abajo para abrir la barra de notificaciones", en: "Swipe down from the top to open the notification bar" },
             note:  null,
             photo: null
           },
           {
-            text:  { de: "Mit dem Finger nach oben wischen zum Entsperren", es: "Deslizar el dedo hacia arriba para desbloquear", en: "Swipe up to unlock" },
+            text:  { de: "Die gewünschte Benachrichtigung gedrückt halten (ca. 2 Sekunden)", es: "Mantener pulsada la notificación deseada (~2 segundos)", en: "Long-press the desired notification (~2 seconds)" },
+            note:  { de: "Es erscheint ein kleines Menü mit Einstellungsoptionen.", es: "Aparece un pequeño menú con opciones de configuración.", en: "A small menu with settings options will appear." },
+            photo: null
+          },
+          {
+            text:  { de: "Auf \"Alle Benachrichtigungen\" oder das Einstellungs-Symbol tippen", es: "Tocar \"Todas las notificaciones\" o el símbolo de ajustes", en: "Tap \"All notifications\" or the settings symbol" },
             note:  null,
             photo: null
           },
           {
-            text:  { de: "Das grüne Telefon-Symbol antippen", es: "Tocar el símbolo verde del teléfono", en: "Tap the green phone icon" },
-            note:  null,
-            photo: null
-          },
-          {
-            text:  { de: "Den gewünschten Kontakt aus der Liste wählen", es: "Seleccionar el contacto deseado de la lista", en: "Select the desired contact from the list" },
-            note:  { de: "Oder oben in das Suchfeld den Namen eintippen.", es: "O escribe el nombre en el campo de búsqueda.", en: "Or type the name in the search field at the top." },
-            photo: null
-          },
-          {
-            text:  { de: "Auf den Namen tippen und dann auf Anrufen", es: "Tocar el nombre y luego en Llamar", en: "Tap the name and then on Call" },
-            note:  null,
+            text:  { de: "Den Schalter neben der gewünschten Benachrichtigungsart antippen um sie aus- oder einzuschalten", es: "Tocar el interruptor junto al tipo de notificación deseado para activarlo o desactivarlo", en: "Tap the switch next to the desired notification type to turn it on or off" },
+            note:  { de: "Grün = eingeschaltet, Grau = ausgeschaltet.", es: "Verde = activado, Gris = desactivado.", en: "Green = on, Grey = off." },
             photo: null
           }
         ]
       },
       {
-        name: { de: "WhatsApp schreiben", es: "Escribir por WhatsApp", en: "Send a WhatsApp message" },
-        icon: "💬",
+        name: { de: "Dokument scannen (Google Drive)", es: "Escanear documento (Google Drive)", en: "Scan a document (Google Drive)" },
+        icon: "📄",
         steps: [
           {
-            text:  { de: "Bildschirm einschalten und entsperren", es: "Encender y desbloquear la pantalla", en: "Wake and unlock the screen" },
+            text:  { de: "Die Google Drive App öffnen (buntes Dreieck-Symbol)", es: "Abrir la app Google Drive (símbolo de triángulo de colores)", en: "Open the Google Drive app (colourful triangle icon)" },
+            note:  { de: "Falls die App nicht auf dem Startbildschirm ist: nach oben wischen und nach \"Drive\" suchen.", es: "Si la app no está en la pantalla de inicio: deslizar hacia arriba y buscar \"Drive\".", en: "If the app is not on the home screen: swipe up and search for \"Drive\"." },
+            photo: null
+          },
+          {
+            text:  { de: "Unten rechts auf das bunte Plus-Symbol (+) tippen", es: "Tocar el símbolo más (+) de colores abajo a la derecha", en: "Tap the colourful plus symbol (+) at the bottom right" },
             note:  null,
             photo: null
           },
           {
-            text:  { de: "Das grüne WhatsApp-Symbol antippen", es: "Tocar el símbolo verde de WhatsApp", en: "Tap the green WhatsApp icon" },
+            text:  { de: "Auf \"Scannen\" tippen (Kamera-Symbol)", es: "Tocar \"Escanear\" (símbolo de cámara)", en: "Tap \"Scan\" (camera icon)" },
             note:  null,
             photo: null
           },
           {
-            text:  { de: "Den gewünschten Kontakt antippen", es: "Tocar el contacto deseado", en: "Tap the desired contact" },
+            text:  { de: "Das Dokument flach hinlegen und die Kamera darauf richten", es: "Colocar el documento en plano y apuntar la cámara hacia él", en: "Lay the document flat and point the camera at it" },
+            note:  { de: "Gutes Licht hilft — am besten bei Tageslicht scannen.", es: "Una buena iluminación ayuda — mejor escanear con luz natural.", en: "Good lighting helps — best to scan in daylight." },
+            photo: null
+          },
+          {
+            text:  { de: "Den weissen Auslöser-Knopf antippen um das Foto zu machen", es: "Tocar el botón disparador blanco para hacer la foto", en: "Tap the white shutter button to take the photo" },
             note:  null,
             photo: null
           },
           {
-            text:  { de: "Unten in das Textfeld tippen und Nachricht schreiben", es: "Tocar el campo de texto abajo y escribir el mensaje", en: "Tap the text field at the bottom and type your message" },
-            note:  null,
+            text:  { de: "Den Scan prüfen — bei Bedarf auf \"Neu scannen\" tippen, sonst auf den Haken", es: "Revisar el escaneo — si es necesario tocar \"Volver a escanear\", si no, tocar el check", en: "Check the scan — tap \"Rescan\" if needed, otherwise tap the tick" },
+            note:  { de: "Weitere Seiten? Auf das Plus-Symbol tippen um eine weitere Seite hinzuzufügen.", es: "¿Más páginas? Tocar el símbolo más para añadir otra página.", en: "More pages? Tap the plus symbol to add another page." },
             photo: null
           },
           {
-            text:  { de: "Auf den grünen Pfeil tippen zum Senden", es: "Tocar la flecha verde para enviar", en: "Tap the green arrow to send" },
-            note:  null,
+            text:  { de: "Einen Namen für das Dokument eingeben und auf \"Speichern\" tippen", es: "Introducir un nombre para el documento y tocar \"Guardar\"", en: "Enter a name for the document and tap \"Save\"" },
+            note:  { de: "Das Dokument wird in Google Drive gespeichert und ist auch am Computer abrufbar.", es: "El documento se guarda en Google Drive y también se puede acceder desde el ordenador.", en: "The document is saved in Google Drive and can also be accessed on the computer." },
             photo: null
           }
         ]
@@ -767,6 +776,7 @@ function renderDevice(device) {
     device.brand  ? `${ui.brand}: ${device.brand}`   : null,
     device.model  ? `${ui.model}: ${device.model}`   : null,
     device.number ? `${ui.number}: ${device.number}` : null,
+    device.os     ? `${ui.os}: ${device.os}`         : null,
   ].filter(Boolean);
   return tags.map(tag => `<span class="device-tag">${tag}</span>`).join('');
 }
