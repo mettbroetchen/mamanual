@@ -666,308 +666,618 @@ const UI = {
 ══════════════════════════════════════════════════════ */
 const GUIDES = [
   {
-    icon: "🥛",
-    name: { de: "Milchaufschäumer",       es: "Espumador de leche",     en: "Milk frother" },
-    desc: { de: "Wähle was du möchtest.", es: "Elige lo que quieres.",  en: "Choose what you'd like to do." },
-    manual: null,  // ← Ersetzen mit: "manuals/milchaufschaeumer.pdf" sobald du das PDF hochgeladen hast
-    device: {
-      brand:  "Lavazza",
-      model:  "MilkUp",
-      number: "18200073"
+    "icon": "🥛",
+    "name": {
+      "de": "Milchaufschäumer",
+      "es": "Espumador de leche",
+      "en": "Milk frother"
     },
-    modes: [
+    "desc": {
+      "de": "Wähle was du möchtest.",
+      "es": "Elige lo que quieres.",
+      "en": "Choose what you'd like to do."
+    },
+    "manual": "manals/lavazza_milkup_18200073.pdf",
+    "device": {
+      "brand": "Lavazza",
+      "model": "MilkUp",
+      "number": "18200073",
+      "os": null
+    },
+    "modes": [
       {
-        name: { de: "Warme Milch aufschäumen", es: "Espumar leche caliente", en: "Froth warm milk" },
-        icon: "♨️",
-        steps: [
+        "name": {
+          "de": "Warme Milch aufschäumen",
+          "es": "Espumar leche caliente",
+          "en": "Froth warm milk"
+        },
+        "icon": "♨️",
+        "steps": [
           {
-            text:  { de: "Milch in den Behälter füllen",                     es: "Llenar el recipiente con leche",                    en: "Pour milk into the container" },
-            note:  { de: "Nur bis zur unteren Markierung — nicht zu voll!",  es: "Solo hasta la marca inferior — ¡no demasiado lleno!", en: "Only up to the lower mark — don't overfill!" },
-            photo: null
+            "text": {
+              "de": "Milch in den Behälter füllen",
+              "es": "Llenar el recipiente con leche - idealmente leche entera, larga vida, fria.",
+              "en": "Pour milk into the container. Best deepl"
+            },
+            "note": {
+              "de": "Nur bis zur unteren Markierung — nicht zu voll!",
+              "es": "Solo hasta la marca inferior — ¡no demasiado lleno! ",
+              "en": "Only up to the lower mark — don't overfill!"
+            },
+            "photo": null
           },
           {
-            text:  { de: "Deckel fest aufsetzen und drehen bis es klickt",   es: "Colocar la tapa y girar hasta que haga clic",       en: "Put the lid on and turn until it clicks" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Deckel fest aufsetzen und drehen bis es klickt",
+              "es": "Colocar la tapa y girar hasta que haga clic",
+              "en": "Put the lid on and turn until it clicks"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Gerät auf die Basisstation stellen",               es: "Colocar el aparato en la base",                     en: "Place the device on the base" },
-            note:  { de: "Das Kabel muss nicht eingesteckt werden.",         es: "No es necesario enchufar el cable.",                en: "No need to plug in the cable." },
-            photo: null
+            "text": {
+              "de": "Gerät auf die Basisstation stellen",
+              "es": "Colocar el aparato en la base",
+              "en": "Place the device on the base"
+            },
+            "note": {
+              "de": "Das Kabel muss nicht eingesteckt werden.",
+              "es": "No es necesario enchufar el cable.",
+              "en": "No need to plug in the cable."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Den Knopf oben einmal drücken",                    es: "Presionar el botón superior una vez",               en: "Press the button on top once" },
-            note:  { de: "Grünes Licht = Gerät startet.",                    es: "Luz verde = el aparato arranca.",                   en: "Green light = device starting." },
-            photo: null
+            "text": {
+              "de": "Den Knopf oben einmal drücken",
+              "es": "Presionar el botón superior una vez",
+              "en": "Press the button on top once"
+            },
+            "note": {
+              "de": "Grünes Licht = Gerät startet.",
+              "es": "Luz verde = el aparato arranca.",
+              "en": "Green light = device starting."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Warten bis das Licht ausgeht (ca. 60 Sek.)",       es: "Esperar hasta que se apague la luz (~60 seg.)",     en: "Wait until the light goes off (~60 sec.)" },
-            note:  { de: "Das Gerät hört von selbst auf.",                   es: "El aparato se detiene solo.",                       en: "The device stops on its own." },
-            photo: null
+            "text": {
+              "de": "Warten bis das Licht ausgeht (ca. 60 Sek.)",
+              "es": "Esperar hasta que se apague la luz (~60 seg.)",
+              "en": "Wait until the light goes off (~60 sec.)"
+            },
+            "note": {
+              "de": "Das Gerät hört von selbst auf.",
+              "es": "El aparato se detiene solo.",
+              "en": "The device stops on its own."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Deckel öffnen und Milch eingiessen",               es: "Abrir la tapa y verter la leche",                   en: "Open the lid and pour the milk" },
-            note:  { de: "Vorsicht: der Behälter ist warm!",                 es: "¡Cuidado: el recipiente está caliente!",            en: "Careful: the container is hot!" },
-            photo: null
+            "text": {
+              "de": "Deckel öffnen und Milch eingiessen",
+              "es": "Abrir la tapa y verter la leche",
+              "en": "Open the lid and pour the milk"
+            },
+            "note": {
+              "de": "Vorsicht: der Behälter ist warm!",
+              "es": "¡Cuidado: el recipiente está caliente!",
+              "en": "Careful: the container is hot!"
+            },
+            "photo": null
           }
         ]
       },
       {
-        name: { de: "Kalte Milch aufschäumen", es: "Espumar leche fría", en: "Froth cold milk" },
-        icon: "❄️",
-        steps: [
+        "name": {
+          "de": "Kalte Milch aufschäumen",
+          "es": "Espumar leche fría",
+          "en": "Froth cold milk"
+        },
+        "icon": "❄️",
+        "steps": [
           {
-            text:  { de: "Kalte Milch in den Behälter füllen",               es: "Llenar el recipiente con leche fría",               en: "Pour cold milk into the container" },
-            note:  { de: "Nur bis zur unteren Markierung.",                  es: "Solo hasta la marca inferior.",                     en: "Only up to the lower mark." },
-            photo: null
+            "text": {
+              "de": "Kalte Milch in den Behälter füllen",
+              "es": "Llenar el recipiente con leche fría",
+              "en": "Pour cold milk into the container"
+            },
+            "note": {
+              "de": "Nur bis zur unteren Markierung.",
+              "es": "Solo hasta la marca inferior.",
+              "en": "Only up to the lower mark."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Deckel fest aufsetzen und drehen bis es klickt",   es: "Colocar la tapa y girar hasta que haga clic",       en: "Put the lid on and turn until it clicks" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Deckel fest aufsetzen und drehen bis es klickt",
+              "es": "Colocar la tapa y girar hasta que haga clic",
+              "en": "Put the lid on and turn until it clicks"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Gerät auf die Basisstation stellen",               es: "Colocar el aparato en la base",                     en: "Place the device on the base" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Gerät auf die Basisstation stellen",
+              "es": "Colocar el aparato en la base",
+              "en": "Place the device on the base"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Den Knopf oben zweimal drücken",                   es: "Presionar el botón superior dos veces",             en: "Press the button on top twice" },
-            note:  { de: "Zwei Mal = kalter Schaum. Ein Mal = warm.",        es: "Dos veces = espuma fría. Una vez = caliente.",      en: "Twice = cold foam. Once = warm." },
-            photo: null
+            "text": {
+              "de": "Den Knopf oben zweimal drücken",
+              "es": "Presionar el botón superior dos veces",
+              "en": "Press the button on top twice"
+            },
+            "note": {
+              "de": "Zwei Mal = kalter Schaum. Ein Mal = warm.",
+              "es": "Dos veces = espuma fría. Una vez = caliente.",
+              "en": "Twice = cold foam. Once = warm."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Warten bis das Licht ausgeht (ca. 60 Sek.)",       es: "Esperar hasta que se apague la luz (~60 seg.)",     en: "Wait until the light goes off (~60 sec.)" },
-            note:  { de: "Das Gerät hört von selbst auf.",                   es: "El aparato se detiene solo.",                       en: "The device stops on its own." },
-            photo: null
+            "text": {
+              "de": "Warten bis das Licht ausgeht (ca. 60 Sek.)",
+              "es": "Esperar hasta que se apague la luz (~60 seg.)",
+              "en": "Wait until the light goes off (~60 sec.)"
+            },
+            "note": {
+              "de": "Das Gerät hört von selbst auf.",
+              "es": "El aparato se detiene solo.",
+              "en": "The device stops on its own."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Deckel öffnen und Milch eingiessen",               es: "Abrir la tapa y verter la leche",                   en: "Open the lid and pour the milk" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Deckel öffnen und Milch eingiessen",
+              "es": "Abrir la tapa y verter la leche",
+              "en": "Open the lid and pour the milk"
+            },
+            "note": null,
+            "photo": null
           }
         ]
       }
     ]
   },
-
   {
-    icon: "☕",
-    name: { de: "Kaffeemaschine", es: "Cafetera",      en: "Coffee machine" },
-    desc: { de: "Eine Tasse Kaffee in wenigen Schritten.", es: "Una taza de café en pocos pasos.", en: "A cup of coffee in just a few steps." },
-    steps: [
+    "icon": "☕",
+    "name": {
+      "de": "Kaffeemaschine",
+      "es": "Cafetera",
+      "en": "Coffee machine"
+    },
+    "desc": {
+      "de": "Eine Tasse Kaffee in wenigen Schritten.",
+      "es": "Una taza de café en pocos pasos.",
+      "en": "A cup of coffee in just a few steps."
+    },
+    "steps": [
       {
-        text:  { de: "Wassertank herausziehen und füllen",      es: "Sacar el depósito de agua y llenarlo",   en: "Pull out the water tank and fill it" },
-        note:  { de: "Mindestens bis MIN, maximal bis MAX.",    es: "Al menos hasta MIN, máximo hasta MAX.",  en: "At least to MIN, maximum to MAX." },
-        photo: null
+        "text": {
+          "de": "Wassertank herausziehen und füllen",
+          "es": "Sacar el depósito de agua y llenarlo",
+          "en": "Pull out the water tank and fill it"
+        },
+        "note": {
+          "de": "Mindestens bis MIN, maximal bis MAX.",
+          "es": "Al menos hasta MIN, máximo hasta MAX.",
+          "en": "At least to MIN, maximum to MAX."
+        },
+        "photo": null
       },
       {
-        text:  { de: "Tank einsetzen bis er einrastet",         es: "Insertar el depósito hasta que encaje",  en: "Insert the tank until it clicks" },
-        note:  null,
-        photo: null
+        "text": {
+          "de": "Tank einsetzen bis er einrastet",
+          "es": "Insertar el depósito hasta que encaje",
+          "en": "Insert the tank until it clicks"
+        },
+        "note": null,
+        "photo": null
       },
       {
-        text:  { de: "Tasse unter den Auslass stellen",         es: "Colocar la taza bajo el dispensador",    en: "Place a cup under the spout" },
-        note:  null,
-        photo: null
+        "text": {
+          "de": "Tasse unter den Auslass stellen",
+          "es": "Colocar la taza bajo el dispensador",
+          "en": "Place a cup under the spout"
+        },
+        "note": null,
+        "photo": null
       },
       {
-        text:  { de: "Einschalter drücken",                     es: "Pulsar el botón de encendido",           en: "Press the power button" },
-        note:  null,
-        photo: null
+        "text": {
+          "de": "Einschalter drücken",
+          "es": "Pulsar el botón de encendido",
+          "en": "Press the power button"
+        },
+        "note": null,
+        "photo": null
       },
       {
-        text:  { de: "Gewünschte Tassengrösse wählen",          es: "Seleccionar el tamaño de taza deseado",  en: "Select the desired cup size" },
-        note:  { de: "Kleine Tasse = kurzer Kaffee, grosse = langer.", es: "Taza pequeña = café corto, grande = largo.", en: "Small cup = short coffee, large = long." },
-        photo: null
+        "text": {
+          "de": "Gewünschte Tassengrösse wählen",
+          "es": "Seleccionar el tamaño de taza deseado",
+          "en": "Select the desired cup size"
+        },
+        "note": {
+          "de": "Kleine Tasse = kurzer Kaffee, grosse = langer.",
+          "es": "Taza pequeña = café corto, grande = largo.",
+          "en": "Small cup = short coffee, large = long."
+        },
+        "photo": null
       }
     ]
   },
-
   {
-    icon: "📺",
-    name: { de: "Fernseher", es: "Televisión", en: "TV" },
-    desc: { de: "Einschalten, Sender wechseln und Lautstärke regeln.", es: "Encender, cambiar canales y ajustar el volumen.", en: "Switch on, change channels and adjust volume." },
-    steps: [
+    "icon": "📺",
+    "name": {
+      "de": "Fernseher",
+      "es": "Televisión",
+      "en": "TV"
+    },
+    "desc": {
+      "de": "Einschalten, Sender wechseln und Lautstärke regeln.",
+      "es": "Encender, cambiar canales y ajustar el volumen.",
+      "en": "Switch on, change channels and adjust volume."
+    },
+    "steps": [
       {
-        text:  { de: "Die grosse Fernbedienung nehmen",                    es: "Coger el mando a distancia grande",           en: "Pick up the large remote control" },
-        note:  null,
-        photo: null
+        "text": {
+          "de": "Die grosse Fernbedienung nehmen",
+          "es": "Coger el mando a distancia grande",
+          "en": "Pick up the large remote control"
+        },
+        "note": null,
+        "photo": null
       },
       {
-        text:  { de: "Roten Knopf oben drücken zum Einschalten",           es: "Pulsar el botón rojo superior para encender", en: "Press the red button on top to switch on" },
-        note:  { de: "Wenn nichts passiert: Fernbedienung auf den Fernseher richten.", es: "Si no pasa nada: apuntar el mando hacia el televisor.", en: "If nothing happens: point the remote at the TV." },
-        photo: null
+        "text": {
+          "de": "Roten Knopf oben drücken zum Einschalten",
+          "es": "Pulsar el botón rojo superior para encender",
+          "en": "Press the red button on top to switch on"
+        },
+        "note": {
+          "de": "Wenn nichts passiert: Fernbedienung auf den Fernseher richten.",
+          "es": "Si no pasa nada: apuntar el mando hacia el televisor.",
+          "en": "If nothing happens: point the remote at the TV."
+        },
+        "photo": null
       },
       {
-        text:  { de: "Mit Pfeiltasten navigieren, OK zum Bestätigen",      es: "Navegar con las flechas, OK para confirmar",  en: "Navigate with arrows, OK to confirm" },
-        note:  null,
-        photo: null
+        "text": {
+          "de": "Mit Pfeiltasten navigieren, OK zum Bestätigen",
+          "es": "Navegar con las flechas, OK para confirmar",
+          "en": "Navigate with arrows, OK to confirm"
+        },
+        "note": null,
+        "photo": null
       },
       {
-        text:  { de: "Lautstärke mit +/- Tasten regeln",                   es: "Ajustar el volumen con los botones +/-",      en: "Adjust volume with the +/- buttons" },
-        note:  null,
-        photo: null
+        "text": {
+          "de": "Lautstärke mit +/- Tasten regeln",
+          "es": "Ajustar el volumen con los botones +/-",
+          "en": "Adjust volume with the +/- buttons"
+        },
+        "note": null,
+        "photo": null
       }
     ]
-  }
-
-  // ── Weitere Geräte hier hinzufügen ──
-  // Jeder Text braucht: de / es / en
-
-  ,{
-    icon: "📱",
-    name: { de: "Smartphone",                    es: "Teléfono móvil",          en: "Smartphone" },
-    desc: { de: "Benachrichtigungen und Scannen.", es: "Notificaciones y escaneo.", en: "Notifications and scanning." },
-    manual: null,
-    device: {
-      brand:  "Xiaomi",
-      model:  "Redmi Note 14 5G",
-      number: null,
-      os:     "HyperOS 2.0.211.0"
+  },
+  {
+    "icon": "📱",
+    "name": {
+      "de": "Smartphone",
+      "es": "Teléfono móvil",
+      "en": "Smartphone"
     },
-    modes: [
+    "desc": {
+      "de": "Benachrichtigungen und Scannen.",
+      "es": "Notificaciones y escaneo.",
+      "en": "Notifications and scanning."
+    },
+    "manual": null,
+    "device": {
+      "brand": "Xiaomi",
+      "model": "Redmi Note 14 5G",
+      "number": null,
+      "os": "HyperOS 2.0.211.0"
+    },
+    "modes": [
       {
-        name: { de: "Benachrichtigungen stummschalten", es: "Silenciar notificaciones", en: "Silence notifications" },
-        icon: "🔕",
-        steps: [
+        "name": {
+          "de": "Benachrichtigungen stummschalten",
+          "es": "Silenciar notificaciones",
+          "en": "Silence notifications"
+        },
+        "icon": "🔕",
+        "steps": [
           {
-            text:  { de: "Von oben nach unten wischen um die Benachrichtigungsleiste zu öffnen", es: "Deslizar de arriba hacia abajo para abrir la barra de notificaciones", en: "Swipe down from the top to open the notification bar" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Von oben nach unten wischen um die Benachrichtigungsleiste zu öffnen",
+              "es": "Deslizar de arriba hacia abajo para abrir la barra de notificaciones",
+              "en": "Swipe down from the top to open the notification bar"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Die gewünschte Benachrichtigung gedrückt halten (ca. 2 Sekunden)", es: "Mantener pulsada la notificación deseada (~2 segundos)", en: "Long-press the desired notification (~2 seconds)" },
-            note:  { de: "Es erscheint ein kleines Menü mit Einstellungsoptionen.", es: "Aparece un pequeño menú con opciones de configuración.", en: "A small menu with settings options will appear." },
-            photo: null
+            "text": {
+              "de": "Die gewünschte Benachrichtigung gedrückt halten (ca. 2 Sekunden)",
+              "es": "Mantener pulsada la notificación deseada (~2 segundos)",
+              "en": "Long-press the desired notification (~2 seconds)"
+            },
+            "note": {
+              "de": "Es erscheint ein kleines Menü mit Einstellungsoptionen.",
+              "es": "Aparece un pequeño menú con opciones de configuración.",
+              "en": "A small menu with settings options will appear."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Auf \"Alle Benachrichtigungen\" oder das Einstellungs-Symbol tippen", es: "Tocar \"Todas las notificaciones\" o el símbolo de ajustes", en: "Tap \"All notifications\" or the settings symbol" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Auf \"Alle Benachrichtigungen\" oder das Einstellungs-Symbol tippen",
+              "es": "Tocar \"Todas las notificaciones\" o el símbolo de ajustes",
+              "en": "Tap \"All notifications\" or the settings symbol"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Den Schalter neben der gewünschten Benachrichtigungsart antippen um sie aus- oder einzuschalten", es: "Tocar el interruptor junto al tipo de notificación deseado para activarlo o desactivarlo", en: "Tap the switch next to the desired notification type to turn it on or off" },
-            note:  { de: "Grün = eingeschaltet, Grau = ausgeschaltet.", es: "Verde = activado, Gris = desactivado.", en: "Green = on, Grey = off." },
-            photo: null
+            "text": {
+              "de": "Den Schalter neben der gewünschten Benachrichtigungsart antippen um sie aus- oder einzuschalten",
+              "es": "Tocar el interruptor junto al tipo de notificación deseado para activarlo o desactivarlo",
+              "en": "Tap the switch next to the desired notification type to turn it on or off"
+            },
+            "note": {
+              "de": "Grün = eingeschaltet, Grau = ausgeschaltet.",
+              "es": "Verde = activado, Gris = desactivado.",
+              "en": "Green = on, Grey = off."
+            },
+            "photo": null
           }
         ]
       },
       {
-        name: { de: "Dokument scannen (Google Drive)", es: "Escanear documento (Google Drive)", en: "Scan a document (Google Drive)" },
-        icon: "📄",
-        steps: [
+        "name": {
+          "de": "Dokument scannen (Google Drive)",
+          "es": "Escanear documento (Google Drive)",
+          "en": "Scan a document (Google Drive)"
+        },
+        "icon": "📄",
+        "steps": [
           {
-            text:  { de: "Die Google Drive App öffnen (buntes Dreieck-Symbol)", es: "Abrir la app Google Drive (símbolo de triángulo de colores)", en: "Open the Google Drive app (colourful triangle icon)" },
-            note:  { de: "Falls die App nicht auf dem Startbildschirm ist: nach oben wischen und nach \"Drive\" suchen.", es: "Si la app no está en la pantalla de inicio: deslizar hacia arriba y buscar \"Drive\".", en: "If the app is not on the home screen: swipe up and search for \"Drive\"." },
-            photo: null
+            "text": {
+              "de": "Die Google Drive App öffnen (buntes Dreieck-Symbol)",
+              "es": "Abrir la app Google Drive (símbolo de triángulo de colores)",
+              "en": "Open the Google Drive app (colourful triangle icon)"
+            },
+            "note": {
+              "de": "Falls die App nicht auf dem Startbildschirm ist: nach oben wischen und nach \"Drive\" suchen.",
+              "es": "Si la app no está en la pantalla de inicio: deslizar hacia arriba y buscar \"Drive\".",
+              "en": "If the app is not on the home screen: swipe up and search for \"Drive\"."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Unten rechts auf das bunte Plus-Symbol (+) tippen", es: "Tocar el símbolo más (+) de colores abajo a la derecha", en: "Tap the colourful plus symbol (+) at the bottom right" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Unten rechts auf das bunte Plus-Symbol (+) tippen",
+              "es": "Tocar el símbolo más (+) de colores abajo a la derecha",
+              "en": "Tap the colourful plus symbol (+) at the bottom right"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Auf \"Scannen\" tippen (Kamera-Symbol)", es: "Tocar \"Escanear\" (símbolo de cámara)", en: "Tap \"Scan\" (camera icon)" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Auf \"Scannen\" tippen (Kamera-Symbol)",
+              "es": "Tocar \"Escanear\" (símbolo de cámara)",
+              "en": "Tap \"Scan\" (camera icon)"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Das Dokument flach hinlegen und die Kamera darauf richten", es: "Colocar el documento en plano y apuntar la cámara hacia él", en: "Lay the document flat and point the camera at it" },
-            note:  { de: "Gutes Licht hilft — am besten bei Tageslicht scannen.", es: "Una buena iluminación ayuda — mejor escanear con luz natural.", en: "Good lighting helps — best to scan in daylight." },
-            photo: null
+            "text": {
+              "de": "Das Dokument flach hinlegen und die Kamera darauf richten",
+              "es": "Colocar el documento en plano y apuntar la cámara hacia él",
+              "en": "Lay the document flat and point the camera at it"
+            },
+            "note": {
+              "de": "Gutes Licht hilft — am besten bei Tageslicht scannen.",
+              "es": "Una buena iluminación ayuda — mejor escanear con luz natural.",
+              "en": "Good lighting helps — best to scan in daylight."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Den weissen Auslöser-Knopf antippen um das Foto zu machen", es: "Tocar el botón disparador blanco para hacer la foto", en: "Tap the white shutter button to take the photo" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Den weissen Auslöser-Knopf antippen um das Foto zu machen",
+              "es": "Tocar el botón disparador blanco para hacer la foto",
+              "en": "Tap the white shutter button to take the photo"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Den Scan prüfen — bei Bedarf auf \"Neu scannen\" tippen, sonst auf den Haken", es: "Revisar el escaneo — si es necesario tocar \"Volver a escanear\", si no, tocar el check", en: "Check the scan — tap \"Rescan\" if needed, otherwise tap the tick" },
-            note:  { de: "Weitere Seiten? Auf das Plus-Symbol tippen um eine weitere Seite hinzuzufügen.", es: "¿Más páginas? Tocar el símbolo más para añadir otra página.", en: "More pages? Tap the plus symbol to add another page." },
-            photo: null
+            "text": {
+              "de": "Den Scan prüfen — bei Bedarf auf \"Neu scannen\" tippen, sonst auf den Haken",
+              "es": "Revisar el escaneo — si es necesario tocar \"Volver a escanear\", si no, tocar el check",
+              "en": "Check the scan — tap \"Rescan\" if needed, otherwise tap the tick"
+            },
+            "note": {
+              "de": "Weitere Seiten? Auf das Plus-Symbol tippen um eine weitere Seite hinzuzufügen.",
+              "es": "¿Más páginas? Tocar el símbolo más para añadir otra página.",
+              "en": "More pages? Tap the plus symbol to add another page."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Einen Namen für das Dokument eingeben und auf \"Speichern\" tippen", es: "Introducir un nombre para el documento y tocar \"Guardar\"", en: "Enter a name for the document and tap \"Save\"" },
-            note:  { de: "Das Dokument wird in Google Drive gespeichert und ist auch am Computer abrufbar.", es: "El documento se guarda en Google Drive y también se puede acceder desde el ordenador.", en: "The document is saved in Google Drive and can also be accessed on the computer." },
-            photo: null
+            "text": {
+              "de": "Einen Namen für das Dokument eingeben und auf \"Speichern\" tippen",
+              "es": "Introducir un nombre para el documento y tocar \"Guardar\"",
+              "en": "Enter a name for the document and tap \"Save\""
+            },
+            "note": {
+              "de": "Das Dokument wird in Google Drive gespeichert und ist auch am Computer abrufbar.",
+              "es": "El documento se guarda en Google Drive y también se puede acceder desde el ordenador.",
+              "en": "The document is saved in Google Drive and can also be accessed on the computer."
+            },
+            "photo": null
           }
         ]
       }
     ]
   },
-
   {
-    icon: "💻",
-    name: { de: "Computer",    es: "Ordenador",   en: "Computer" },
-    desc: { de: "Einschalten, Internet öffnen und E-Mails lesen.", es: "Encender, abrir internet y leer correos.", en: "Switch on, browse the internet and read emails." },
-    manual: null,
-    device: {
-      brand:  null,
-      model:  null,
-      number: null
+    "icon": "💻",
+    "name": {
+      "de": "Computer",
+      "es": "Ordenador",
+      "en": "Computer"
     },
-    modes: [
+    "desc": {
+      "de": "Einschalten, Internet öffnen und E-Mails lesen.",
+      "es": "Encender, abrir internet y leer correos.",
+      "en": "Switch on, browse the internet and read emails."
+    },
+    "manual": null,
+    "device": {
+      "brand": null,
+      "model": null,
+      "number": null
+    },
+    "modes": [
       {
-        name: { de: "Computer starten", es: "Encender el ordenador", en: "Start the computer" },
-        icon: "🔌",
-        steps: [
+        "name": {
+          "de": "Computer starten",
+          "es": "Encender el ordenador",
+          "en": "Start the computer"
+        },
+        "icon": "🔌",
+        "steps": [
           {
-            text:  { de: "Den Einschaltknopf drücken", es: "Pulsar el botón de encendido", en: "Press the power button" },
-            note:  { de: "Der Knopf befindet sich rechts am Bildschirmrand.", es: "El botón está en el lado derecho de la pantalla.", en: "The button is on the right side of the screen." },
-            photo: null
+            "text": {
+              "de": "Den Einschaltknopf drücken",
+              "es": "Pulsar el botón de encendido",
+              "en": "Press the power button"
+            },
+            "note": {
+              "de": "Der Knopf befindet sich rechts am Bildschirmrand.",
+              "es": "El botón está en el lado derecho de la pantalla.",
+              "en": "The button is on the right side of the screen."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Warten bis der Startbildschirm erscheint (ca. 30 Sek.)", es: "Esperar hasta que aparezca la pantalla de inicio (~30 seg.)", en: "Wait until the start screen appears (~30 sec.)" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Warten bis der Startbildschirm erscheint (ca. 30 Sek.)",
+              "es": "Esperar hasta que aparezca la pantalla de inicio (~30 seg.)",
+              "en": "Wait until the start screen appears (~30 sec.)"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Falls nötig: Passwort eingeben und Enter drücken", es: "Si es necesario: introducir la contraseña y pulsar Enter", en: "If needed: enter the password and press Enter" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Falls nötig: Passwort eingeben und Enter drücken",
+              "es": "Si es necesario: introducir la contraseña y pulsar Enter",
+              "en": "If needed: enter the password and press Enter"
+            },
+            "note": null,
+            "photo": null
           }
         ]
       },
       {
-        name: { de: "Internet öffnen", es: "Abrir internet", en: "Open the internet" },
-        icon: "🌐",
-        steps: [
+        "name": {
+          "de": "Internet öffnen",
+          "es": "Abrir internet",
+          "en": "Open the internet"
+        },
+        "icon": "🌐",
+        "steps": [
           {
-            text:  { de: "Auf das bunte Kreis-Symbol auf dem Desktop doppelklicken", es: "Hacer doble clic en el símbolo de círculo de colores del escritorio", en: "Double-click the colourful circle icon on the desktop" },
-            note:  { de: "Das ist der Browser — damit öffnet sich das Internet.", es: "Ese es el navegador — con él se abre internet.", en: "That's the browser — it opens the internet." },
-            photo: null
+            "text": {
+              "de": "Auf das bunte Kreis-Symbol auf dem Desktop doppelklicken",
+              "es": "Hacer doble clic en el símbolo de círculo de colores del escritorio",
+              "en": "Double-click the colourful circle icon on the desktop"
+            },
+            "note": {
+              "de": "Das ist der Browser — damit öffnet sich das Internet.",
+              "es": "Ese es el navegador — con él se abre internet.",
+              "en": "That's the browser — it opens the internet."
+            },
+            "photo": null
           },
           {
-            text:  { de: "Oben in die Adressleiste klicken", es: "Hacer clic en la barra de direcciones de arriba", en: "Click on the address bar at the top" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Oben in die Adressleiste klicken",
+              "es": "Hacer clic en la barra de direcciones de arriba",
+              "en": "Click on the address bar at the top"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Gewünschte Webseite eintippen und Enter drücken", es: "Escribir la página web deseada y pulsar Enter", en: "Type the desired website and press Enter" },
-            note:  { de: "Zum Beispiel: google.de", es: "Por ejemplo: google.es", en: "For example: google.com" },
-            photo: null
+            "text": {
+              "de": "Gewünschte Webseite eintippen und Enter drücken",
+              "es": "Escribir la página web deseada y pulsar Enter",
+              "en": "Type the desired website and press Enter"
+            },
+            "note": {
+              "de": "Zum Beispiel: google.de",
+              "es": "Por ejemplo: google.es",
+              "en": "For example: google.com"
+            },
+            "photo": null
           }
         ]
       },
       {
-        name: { de: "Computer ausschalten", es: "Apagar el ordenador", en: "Shut down the computer" },
-        icon: "⏻",
-        steps: [
+        "name": {
+          "de": "Computer ausschalten",
+          "es": "Apagar el ordenador",
+          "en": "Shut down the computer"
+        },
+        "icon": "⏻",
+        "steps": [
           {
-            text:  { de: "Unten links auf das Windows-Symbol klicken", es: "Hacer clic en el símbolo de Windows abajo a la izquierda", en: "Click the Windows symbol at the bottom left" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Unten links auf das Windows-Symbol klicken",
+              "es": "Hacer clic en el símbolo de Windows abajo a la izquierda",
+              "en": "Click the Windows symbol at the bottom left"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Auf das Ein/Aus-Symbol klicken", es: "Hacer clic en el símbolo de encendido", en: "Click the power symbol" },
-            note:  null,
-            photo: null
+            "text": {
+              "de": "Auf das Ein/Aus-Symbol klicken",
+              "es": "Hacer clic en el símbolo de encendido",
+              "en": "Click the power symbol"
+            },
+            "note": null,
+            "photo": null
           },
           {
-            text:  { de: "Auf \"Herunterfahren\" klicken", es: "Hacer clic en \"Apagar\"", en: "Click \"Shut down\"" },
-            note:  { de: "Warte bis der Bildschirm schwarz wird — dann ist der PC aus.", es: "Espera hasta que la pantalla se ponga negra — entonces el PC está apagado.", en: "Wait until the screen goes black — then the PC is off." },
-            photo: null
+            "text": {
+              "de": "Auf \"Herunterfahren\" klicken",
+              "es": "Hacer clic en \"Apagar\"",
+              "en": "Click \"Shut down\""
+            },
+            "note": {
+              "de": "Warte bis der Bildschirm schwarz wird — dann ist der PC aus.",
+              "es": "Espera hasta que la pantalla se ponga negra — entonces el PC está apagado.",
+              "en": "Wait until the screen goes black — then the PC is off."
+            },
+            "photo": null
           }
         ]
       }
