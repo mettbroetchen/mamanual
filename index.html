@@ -202,8 +202,12 @@
     .mode-card:active { transform: scale(0.97); }
     .mode-card:hover  { border-color: var(--accent); }
     .mode-icon  { font-size: 26px; flex-shrink: 0; }
+    .mode-body  { flex: 1; min-width: 0; }
     .mode-name  { font-size: 16px; font-weight: 700; }
-    .mode-arrow { margin-left: auto; color: var(--hint); font-size: 18px; }
+    .mode-arrow { margin-left: auto; color: var(--hint); font-size: 18px; flex-shrink: 0; }
+    .mode-app-info { display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+    .mode-app-info img { width: 15px; height: 15px; object-fit: contain; border-radius: 3px; }
+    .mode-app-name { font-size: 12px; color: var(--muted); }
 
     .step {
       display: flex;
@@ -1038,6 +1042,10 @@ const GUIDES = [
           "en": "Scan a document (Google Drive)"
         },
         "icon": "📄",
+        "app": {
+          "name": "Google Drive",
+          "iconUrl": "https://www.google.com/s2/favicons?domain=drive.google.com&sz=128"
+        },
         "steps": [
           {
             "text": {
@@ -1127,6 +1135,10 @@ const GUIDES = [
           "es": "Traducir captura de pantalla con Googl Lens",
           "en": "Traduce screenshot with Google Lens"
         },
+        "app": {
+          "name": "Google Lens",
+          "iconUrl": "https://www.google.com/s2/favicons?domain=lens.google.com&sz=128"
+        },
         "steps": []
       },
       {
@@ -1136,6 +1148,10 @@ const GUIDES = [
           "es": "Compartir ubicación con Google Maps",
           "en": "Share location with Google Maps"
         },
+        "app": {
+          "name": "Google Maps",
+          "iconUrl": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=128"
+        },
         "steps": []
       },
       {
@@ -1144,6 +1160,10 @@ const GUIDES = [
           "de": "Mit Google Maps navigieren",
           "es": "Navegar con Google Maps",
           "en": "Navigate with Google Maps"
+        },
+        "app": {
+          "name": "Google Maps",
+          "iconUrl": "https://www.google.com/s2/favicons?domain=maps.google.com&sz=128"
         },
         "steps": [
           {
@@ -1487,7 +1507,10 @@ function openGuide(deName) {
       <div class="mode-card" style="animation-delay:${i * 0.07}s"
            onclick="openMode(${i})">
         <div class="mode-icon">${renderIcon(m.icon, 28)}</div>
-        <div class="mode-name">${t(m.name)}</div>
+        <div class="mode-body">
+          <div class="mode-name">${t(m.name)}</div>
+          ${m.app ? `<div class="mode-app-info">${m.app.iconUrl ? `<img src="${m.app.iconUrl}" alt="" onerror="this.style.display='none'">` : ''}<span class="mode-app-name">${m.app.name}</span></div>` : ''}
+        </div>
         <div class="mode-arrow">›</div>
       </div>
     `).join('');
@@ -1499,15 +1522,22 @@ function openGuide(deName) {
 
 function openMode(index) {
   const m = currentGuide.modes[index];
-  renderSteps(m.icon, t(m.name), '', m.steps, 'modes');
+  renderSteps(m.icon, t(m.name), '', m.steps, 'modes', m.app || null);
 }
 
-function renderSteps(icon, title, desc, steps, backTarget) {
+function renderSteps(icon, title, desc, steps, backTarget, app) {
   const ui = UI[lang];
   document.getElementById('stepsEmoji').innerHTML   = renderIcon(icon, 44);
   document.getElementById('stepsTitle').textContent   = title;
   document.getElementById('stepsDesc').textContent    = desc;
-  document.getElementById('stepsDevice').innerHTML    = renderDevice(currentGuide ? currentGuide.device : null);
+  if (app) {
+    const imgHtml = app.iconUrl
+      ? `<img src="${app.iconUrl}" alt="" onerror="this.style.display='none'" style="width:20px;height:20px;object-fit:contain;border-radius:4px;vertical-align:middle;margin-right:4px;">`
+      : '';
+    document.getElementById('stepsDevice').innerHTML = `<div class="device-info"><span class="device-tag">${imgHtml}${app.name}</span></div>`;
+  } else {
+    document.getElementById('stepsDevice').innerHTML = renderDevice(currentGuide ? currentGuide.device : null);
+  }
   document.getElementById('stepsHeading').textContent = ui.stepsHeading;
   document.getElementById('stepsBack').textContent    = ui.back;
 
@@ -1797,6 +1827,21 @@ function renderAdminModes() {
             <label>Name (EN)</label>
             <input type="text" value="${m.name?.en||''}"
               oninput="adminModes[${mi}].name.en=this.value" />
+          </div>
+        </div>
+        <div style="background:var(--accent-bg); border:1px solid var(--border); border-radius:10px; padding:0.6rem; margin-bottom:0.6rem;">
+          <div style="font-size:11px; font-weight:700; color:var(--hint); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.5rem;">App (optional)</div>
+          <div class="admin-field">
+            <label>App-Symbol (Bild-URL)</label>
+            <input type="text" value="${m.app?.iconUrl||''}"
+              placeholder="https://www.google.com/s2/favicons?domain=drive.google.com&sz=128"
+              oninput="if(!adminModes[${mi}].app) adminModes[${mi}].app={}; adminModes[${mi}].app.iconUrl=this.value" />
+          </div>
+          <div class="admin-field" style="margin-bottom:0">
+            <label>App-Name</label>
+            <input type="text" value="${m.app?.name||''}"
+              placeholder="Google Drive"
+              oninput="if(!adminModes[${mi}].app) adminModes[${mi}].app={}; adminModes[${mi}].app.name=this.value" />
           </div>
         </div>
         <div id="modeSteps${mi}"></div>
