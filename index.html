@@ -203,6 +203,7 @@
     .mode-card:hover  { border-color: var(--accent); }
     .mode-icon  { font-size: 26px; flex-shrink: 0; }
     .mode-name  { font-size: 16px; font-weight: 700; }
+    .mode-app   { font-size: 12px; color: var(--muted); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
     .mode-arrow { margin-left: auto; color: var(--hint); font-size: 18px; }
 
     .step {
@@ -984,6 +985,7 @@ const GUIDES = [
           "en": "Silence notifications"
         },
         "icon": "🔕",
+        "app": null,
         "steps": [
           {
             "text": {
@@ -1038,6 +1040,10 @@ const GUIDES = [
           "en": "Scan a document (Google Drive)"
         },
         "icon": "📄",
+        "app": {
+          "name": { "de": "Google Drive", "es": "Google Drive", "en": "Google Drive" },
+          "icon": "🔷"
+        },
         "steps": [
           {
             "text": {
@@ -1127,6 +1133,10 @@ const GUIDES = [
           "es": "Traducir captura de pantalla con Googl Lens",
           "en": "Traduce screenshot with Google Lens"
         },
+        "app": {
+          "name": { "de": "Google Lens", "es": "Google Lens", "en": "Google Lens" },
+          "icon": "🔍"
+        },
         "steps": []
       },
       {
@@ -1136,6 +1146,10 @@ const GUIDES = [
           "es": "Compartir ubicación con Google Maps",
           "en": "Share location with Google Maps"
         },
+        "app": {
+          "name": { "de": "Google Maps", "es": "Google Maps", "en": "Google Maps" },
+          "icon": "🗺️"
+        },
         "steps": []
       },
       {
@@ -1144,6 +1158,10 @@ const GUIDES = [
           "de": "Mit Google Maps navigieren",
           "es": "Navegar con Google Maps",
           "en": "Navigate with Google Maps"
+        },
+        "app": {
+          "name": { "de": "Google Maps", "es": "Google Maps", "en": "Google Maps" },
+          "icon": "🗺️"
         },
         "steps": [
           {
@@ -1457,6 +1475,13 @@ function renderDevice(device) {
   return tags.map(tag => `<span class="device-tag">${tag}</span>`).join('');
 }
 
+function renderApp(app) {
+  if (!app) return '';
+  const name = t(app.name);
+  const icon = renderIcon(app.icon, 16);
+  return `<span class="device-tag">${icon} ${name}</span>`;
+}
+
 function renderIcon(icon, size) {
   if (!icon) return '❓';
   const isImage = icon.includes('/') || icon.match(/\.(png|jpg|jpeg|svg|webp|gif)$/i);
@@ -1487,7 +1512,10 @@ function openGuide(deName) {
       <div class="mode-card" style="animation-delay:${i * 0.07}s"
            onclick="openMode(${i})">
         <div class="mode-icon">${renderIcon(m.icon, 28)}</div>
-        <div class="mode-name">${t(m.name)}</div>
+        <div style="flex:1;">
+          <div class="mode-name">${t(m.name)}</div>
+          ${m.app ? `<div class="mode-app">${renderIcon(m.app.icon, 16)} ${t(m.app.name)}</div>` : ''}
+        </div>
         <div class="mode-arrow">›</div>
       </div>
     `).join('');
@@ -1499,15 +1527,17 @@ function openGuide(deName) {
 
 function openMode(index) {
   const m = currentGuide.modes[index];
-  renderSteps(m.icon, t(m.name), '', m.steps, 'modes');
+  renderSteps(m.icon, t(m.name), '', m.steps, 'modes', m.app || null);
 }
 
-function renderSteps(icon, title, desc, steps, backTarget) {
+function renderSteps(icon, title, desc, steps, backTarget, app) {
   const ui = UI[lang];
   document.getElementById('stepsEmoji').innerHTML   = renderIcon(icon, 44);
   document.getElementById('stepsTitle').textContent   = title;
   document.getElementById('stepsDesc').textContent    = desc;
-  document.getElementById('stepsDevice').innerHTML    = renderDevice(currentGuide ? currentGuide.device : null);
+  document.getElementById('stepsDevice').innerHTML    = app
+    ? renderApp(app)
+    : renderDevice(currentGuide ? currentGuide.device : null);
   document.getElementById('stepsHeading').textContent = ui.stepsHeading;
   document.getElementById('stepsBack').textContent    = ui.back;
 
@@ -1799,6 +1829,33 @@ function renderAdminModes() {
               oninput="adminModes[${mi}].name.en=this.value" />
           </div>
         </div>
+        <div class="admin-section-title" style="margin-top:0.75rem; font-size:11px;">App (optional)</div>
+        <div style="display:flex;gap:8px; margin-bottom:0.5rem;">
+          <div class="admin-field" style="width:60px;flex-shrink:0;">
+            <label>App-Symbol</label>
+            <input type="text" value="${m.app?.icon||''}" maxlength="2"
+              placeholder="🔷"
+              oninput="if(!adminModes[${mi}].app)adminModes[${mi}].app={name:{de:'',es:'',en:''},icon:''};adminModes[${mi}].app.icon=this.value" />
+          </div>
+          <div class="admin-field" style="flex:1;">
+            <label>App-Name (DE)</label>
+            <input type="text" value="${m.app?.name?.de||''}"
+              placeholder="z.B. Google Drive"
+              oninput="if(!adminModes[${mi}].app)adminModes[${mi}].app={name:{de:'',es:'',en:''},icon:''};adminModes[${mi}].app.name.de=this.value" />
+          </div>
+        </div>
+        <div style="display:flex;gap:6px; margin-bottom:0.5rem;">
+          <div class="admin-field" style="flex:1;">
+            <label>App-Name (ES)</label>
+            <input type="text" value="${m.app?.name?.es||''}"
+              oninput="if(!adminModes[${mi}].app)adminModes[${mi}].app={name:{de:'',es:'',en:''},icon:''};adminModes[${mi}].app.name.es=this.value" />
+          </div>
+          <div class="admin-field" style="flex:1;">
+            <label>App-Name (EN)</label>
+            <input type="text" value="${m.app?.name?.en||''}"
+              oninput="if(!adminModes[${mi}].app)adminModes[${mi}].app={name:{de:'',es:'',en:''},icon:''};adminModes[${mi}].app.name.en=this.value" />
+          </div>
+        </div>
         <div id="modeSteps${mi}"></div>
         <button class="btn-sm" onclick="adminAddStep(${mi})" style="margin-top:4px;">+ Schritt</button>
       </div>
@@ -1828,7 +1885,7 @@ function refreshModeHeader(mi) {
 }
 
 function adminAddMode() {
-  adminModes.push({ icon:'⚙️', name:{de:'',es:'',en:''}, steps:[] });
+  adminModes.push({ icon:'⚙️', name:{de:'',es:'',en:''}, app:null, steps:[] });
   renderAdminModes();
 }
 
@@ -1870,7 +1927,10 @@ function adminBuildGuide() {
       os:     os     || null,
     } : null,
   };
-  if (isModes) g.modes = adminModes;
+  if (isModes) g.modes = adminModes.map(m => ({
+    ...m,
+    app: (m.app && (m.app.name?.de || m.app.name?.es || m.app.name?.en || m.app.icon)) ? m.app : null,
+  }));
   else         g.steps = adminSteps;
   return g;
 }
