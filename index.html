@@ -1460,9 +1460,18 @@ function renderGrid(data) {
 }
 
 function filterGuides(q) {
-  const filtered = GUIDES.filter(g =>
-    t(g.name).toLowerCase().includes(q.toLowerCase())
-  );
+  if (!q) { renderGrid(GUIDES); return; }
+  const lq = q.toLowerCase();
+  const filtered = GUIDES.filter(g => {
+    if (t(g.name).toLowerCase().includes(lq)) return true;
+    if (g.modes) {
+      return g.modes.some(m =>
+        t(m.name).toLowerCase().includes(lq) ||
+        (m.app && m.app.name && m.app.name.toLowerCase().includes(lq))
+      );
+    }
+    return false;
+  });
   renderGrid(filtered);
 }
 
