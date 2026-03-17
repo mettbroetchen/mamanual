@@ -5,38 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mamas Helfer</title>
   <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#f0f7ff" />
+  <meta name="theme-color" content="#f0fff4" />
   <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:        #f0f7ff;
-      --surface:   #e8f4ff;
+      --bg:        #f0fff4;
+      --surface:   #e8f5ee;
       --card:      #ffffff;
-      --border:    #b3d7f5;
-      --accent:    #1f93eb;
-      --accent-bg: #deeffe;
-      --text:      #0d2137;
-      --muted:     #4878a0;
-      --hint:      #7aadcc;
+      --border:    #b3d7b8;
+      --accent:    #29903b;
+      --accent-bg: #d4edda;
+      --text:      #0d2113;
+      --muted:     #487850;
+      --hint:      #7aad84;
       --radius:    18px;
-      --shadow:    0 2px 12px rgba(31,147,235,0.08);
+      --shadow:    0 2px 12px rgba(41,144,59,0.08);
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
         --bg:        #000000;
-        --surface:   #060a12;
-        --card:      #08101e;
-        --border:    #1f7ec4;
-        --accent:    #1f93eb;
-        --accent-bg: #051525;
-        --text:      #f0f7ff;
-        --muted:     #7ab8e0;
-        --hint:      #3d6e8a;
-        --shadow:    0 2px 12px rgba(31,147,235,0.12);
+        --surface:   #060a07;
+        --card:      #08100a;
+        --border:    #1f7e2a;
+        --accent:    #29903b;
+        --accent-bg: #051509;
+        --text:      #f0fff4;
+        --muted:     #7ab880;
+        --hint:      #3d6e47;
+        --shadow:    0 2px 12px rgba(41,144,59,0.12);
       }
     }
 
@@ -395,14 +395,14 @@
       font-size: 12px; padding: 4px 10px;
       border-radius: 20px; font-weight: 700;
     }
-    .token-status.ok  { background: #deeffe; color: #1a6aaa; }
+    .token-status.ok  { background: #d4edda; color: #1a7028; }
     .token-status.nok { background: #fff0f0; color: #c0392b; }
 
     .push-status {
       margin-top: 0.75rem; font-size: 13px; font-weight: 600;
       padding: 10px 14px; border-radius: 12px; display: none;
     }
-    .push-status.success { background: #deeffe; color: #1a6aaa; display: block; }
+    .push-status.success { background: #d4edda; color: #1a7028; display: block; }
     .push-status.error   { background: #fff0f0; color: #c0392b; display: block; }
     .push-status.loading { background: var(--accent-bg); color: var(--accent); display: block; }
 
