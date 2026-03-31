@@ -2129,6 +2129,20 @@ function renderAdminSteps(steps, containerId) {
           <input type="text" value="${(s.note&&s.note.en)||''}" oninput="updateStep(${i},'note','en',this.value,'${id}')" />
         </div>
       </div>
+      <div class="admin-field">
+        <label>Foto</label>
+        ${s.photo
+          ? `<div style="margin-bottom:6px;"><img src="${s.photo}" alt="Vorschau" style="max-height:80px; max-width:100%; object-fit:cover; border-radius:8px; border:1.5px solid var(--border); display:block;" /></div>`
+          : ''}
+        <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+          <label class="btn-sm" style="cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
+            📷 ${s.photo ? 'Ersetzen' : 'Hochladen'}
+            <input type="file" accept="image/*" style="display:none;"
+              onchange="uploadStepPhoto(${i},'${id}',this)" />
+          </label>
+          ${s.photo ? `<button class="btn-sm danger" onclick="removeStepPhoto(${i},'${id}')">✕ Bild entfernen</button>` : ''}
+        </div>
+      </div>
       <div class="btn-row">
         ${i > 0 ? `<button class="btn-sm" onclick="moveStep(${i},-1,'${id}')">↑</button>` : ''}
         ${i < list.length-1 ? `<button class="btn-sm" onclick="moveStep(${i},1,'${id}')">↓</button>` : ''}
@@ -2183,6 +2197,72 @@ function moveStep(i, dir, containerId) {
     renderAdminSteps();
   } else {
     const mi = parseInt(containerId.replace('modeSteps',''));
+    renderAdminSteps(adminModes[mi].steps, containerId);
+  }
+}
+
+// ── Foto-Upload ─────────────────────────────────────
+async function uploadStepPhoto(stepIndex, containerId, fileInput) {
+  const token = localStorage.getItem('gh_token');
+  if (!token) {
+    setPushStatus('error', '⚠️ Bitte zuerst einen GitHub Token eingeben.');
+    return;
+  }
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  setPushStatus('loading', '⏳ Foto wird hochgeladen...');
+
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    try {
+      const base64 = e.target.result.split(',')[1];
+      const ext = file.name.includes('.') ? file.name.split('.').pop().toLowerCase() : 'jpg';
+      const fileName = `photos/photo-${Date.now()}.${ext}`;
+      const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${fileName}`;
+
+      const resp = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+          Authorization: 'token ' + token,
+          Accept: 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: 'Admin: Foto für Schritt hochgeladen',
+          content: base64,
+        })
+      });
+
+      if (!resp.ok) {
+        const err = await resp.json();
+        throw new Error(err.message || 'Upload fehlgeschlagen. Status: ' + resp.status);
+      }
+
+      const list = getStepsList(containerId);
+      list[stepIndex].photo = fileName;
+      setPushStatus('success', '✅ Foto hochgeladen! Bitte noch speichern & pushen.');
+
+      if (containerId === 'adminStepsList') {
+        renderAdminSteps();
+      } else {
+        const mi = parseInt(containerId.replace('modeSteps', ''));
+        renderAdminSteps(adminModes[mi].steps, containerId);
+      }
+    } catch(err) {
+      setPushStatus('error', '❌ Foto-Upload fehlgeschlagen: ' + err.message);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeStepPhoto(stepIndex, containerId) {
+  const list = getStepsList(containerId);
+  list[stepIndex].photo = null;
+  if (containerId === 'adminStepsList') {
+    renderAdminSteps();
+  } else {
+    const mi = parseInt(containerId.replace('modeSteps', ''));
     renderAdminSteps(adminModes[mi].steps, containerId);
   }
 }
